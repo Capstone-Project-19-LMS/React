@@ -2,6 +2,7 @@ import React from "react";
 import "./style.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import image from "../../assets/img/Image.png";
+import { Link } from "react-router-dom";
 
 const Login = () => {
   return (
@@ -37,7 +38,6 @@ const Login = () => {
                       placeholder="Password"
                     />
                   </div>
-                  
 
                   <div className="pt-1 mb-4  justify-content-md-center">
                     <div class="col d-flex">
@@ -48,9 +48,7 @@ const Login = () => {
                           value=""
                           checked
                         />
-                        <label class="form-check-label" >
-                          remember me
-                        </label>
+                        <label class="form-check-label">remember me</label>
                       </div>
                       {/* <div class="col ml-4">
                         <a href="#!">Forgot password?</a>
@@ -62,10 +60,9 @@ const Login = () => {
                   </button>
 
                   <p>
-                  Don't have an account?
-                    <a href="#!" className="link-info">
-                      Daftar
-                    </a>
+                    Don't have an account?
+                    <Link to="/register"> Register</Link>
+                    
                   </p>
                 </form>
               </div>

@@ -2,6 +2,7 @@ import React from "react";
 import "./style.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import image from "../../assets/img/Image.png";
+import { Link } from "react-router-dom";
 
 const Register = () => {
   return (
@@ -16,7 +17,7 @@ const Register = () => {
               <div className="d-flex  justify-content-md-center h-custom-2 px-5 ms-xl-4 mt-5 pt-5 pt-xl-0 mt-xl-n5">
                 <form>
                   <div className="login">
-                    <h3>MASUK</h3>
+                    <h3>DAFTAR</h3>
                   </div>
 
                   <div className="">
@@ -70,9 +71,7 @@ const Register = () => {
 
                   <p>
                    have an account?
-                    <a href="#!" className="link-info">
-                      Login 
-                    </a>
+                   <Link to="/login"> Login</Link>
                   </p>
                 </form>
               </div>
