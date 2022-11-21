@@ -3,7 +3,7 @@ import "./style.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import image from "../../assets/img/Image.png";
 
-const Register = () => {
+const Login = () => {
   return (
     <div className="parent">
       <section className="vh-100">
@@ -37,14 +37,7 @@ const Register = () => {
                       placeholder="Password"
                     />
                   </div>
-                  <div className="form-outline mb-4">
-                    <label className="form-label">Konfirmasi Password</label>
-                    <input
-                      type="password"
-                      className="form-control form-control-md"
-                      placeholder="Password"
-                    />
-                  </div>
+                  
 
                   <div className="pt-1 mb-4  justify-content-md-center">
                     <div class="col d-flex">
@@ -56,7 +49,7 @@ const Register = () => {
                           checked
                         />
                         <label class="form-check-label" >
-                          saya telah membaca dan setuju dengan persyaratan dan privacy kami
+                          remember me
                         </label>
                       </div>
                       {/* <div class="col ml-4">
@@ -69,9 +62,9 @@ const Register = () => {
                   </button>
 
                   <p>
-                   have an account?
+                  Don't have an account?
                     <a href="#!" className="link-info">
-                      Login 
+                      Daftar
                     </a>
                   </p>
                 </form>
@@ -84,4 +77,4 @@ const Register = () => {
   );
 };
 
-export default Register;
+export default Login;
