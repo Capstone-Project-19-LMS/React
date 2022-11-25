@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import "./Navbar.css";
 import logo from "../../assets/img/logo.png";
+import gencer from "../../assets/img/gencer.png";
 import foto from "../../assets/img/foto.png";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -11,8 +12,9 @@ const Navbar = () => {
       <nav className="navbar navbar-expand-lg">
         <div className="container-fluid">
           <Link className="navbar-brand" to="#">
-            <img src={logo} alt="Logo" className="mx-3" />
-            LOGO
+            <img src={logo} alt="Logo" className="logo" />
+            <img src={gencer} alt="Logo" className="gencer" />
+            
           </Link>
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
