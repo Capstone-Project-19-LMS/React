@@ -4,7 +4,9 @@ import "./Navbar.css";
 import logo from "../../assets/img/logo.png";
 import gencer from "../../assets/img/gencer.png";
 import foto from "../../assets/img/foto.png";
-import 'bootstrap/dist/css/bootstrap.min.css';
+import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap/dist/js/bootstrap.min.js";
+import {BsFillDoorClosedFill} from 'react-icons/bs';
 
 const Navbar = () => {
   return (
@@ -14,7 +16,6 @@ const Navbar = () => {
           <Link className="navbar-brand" to="#">
             <img src={logo} alt="Logo" className="logo" />
             <img src={gencer} alt="Logo" className="gencer" />
-            
           </Link>
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
@@ -42,12 +43,26 @@ const Navbar = () => {
             <div class="form-group has-search">
               <input
                 type="text"
-                className="search-input"
+                className="search-input mx-2"
                 placeholder="Yuk mulai belajar hal baru hari ini !"
               />
             </div>
-            <div>
-              <img src={foto} alt="Foto" className="mx-2" />
+            <div className="nav-item dropdown">
+              <Link
+                className="nav-link dropdown-toogle"
+                to="#"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                <img src={foto} alt="Foto" className="foto" type="button"  />
+                <b className="caret"></b>
+              </Link>
+              <div className="dropdown-menu">
+                  <Link className="dropdown-item" to="#"><BsFillDoorClosedFill/>
+                    <span className="ms-3">Masuk</span>
+                  </Link>
+              </div>
             </div>
           </div>
         </div>
