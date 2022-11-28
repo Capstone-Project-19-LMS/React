@@ -1,0 +1,20 @@
+[
+    {
+        "id": 1,
+        "name": "Become a Flutter Master ",
+        "price": "100.000",
+        "imgUrl": "../assets/img/product.png"
+    },
+    {
+        "id": 2,
+        "name": "React",
+        "price": "110.000",
+        "imgUrl": "../assets/img/product.png"
+    },
+    {
+        "id": 3,
+        "name": "Go",
+        "price": "120.000",
+        "imgUrl": "/img/blue.jpg"
+    }
+]

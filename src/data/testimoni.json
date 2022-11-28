@@ -1,0 +1,34 @@
+[
+    {
+        "id": 1,
+        "name": "Aldy RK",
+        "text": "“Penjelasannya sangat mudah dimengerti “",
+        "rating": "5",
+        "class": "Become a Flutter Master",
+        "imgUrl": "../assets/img/product.png"
+    },
+    {
+        "id": 2,
+        "name": "Aldy SK",
+        "text": "“Penjelasannya sangat mudah dimengerti “",
+        "rating": "4.5",
+        "class": "React",
+        "imgUrl": "../assets/img/product.png"
+    },
+    {
+        "id": 3,
+        "name": "Aldy TK",
+        "text": "“Penjelasannya sangat mudah dimengerti “",
+        "rating": "4",
+        "class": "Go",
+        "imgUrl": "/img/blue.jpg"
+    },
+    {
+        "id": 4,
+        "name": "Aldy UK",
+        "text": "“Penjelasannya sangat mudah dimengerti “",
+        "rating": "3.5",
+        "class": "UI/UX",
+        "imgUrl": "/img/blue.jpg"
+    }
+]
