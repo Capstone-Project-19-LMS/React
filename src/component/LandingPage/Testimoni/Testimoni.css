@@ -1,0 +1,33 @@
+.title-testimoni {
+  width: 455px;
+  height: 38px;
+  margin-top: 50px;
+  margin-bottom: 20px;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 32px;
+  line-height: 38px;
+}
+.text-testimoni {
+  font-family: "Nunito";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 27px;
+}
+.name-testimoni {
+  font-family: "Nunito";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 22px;
+}
+.subtitle-testimoni {
+  font-family: "Nunito";
+  width: 600px;
+  height: 28px;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 28px;
+}
