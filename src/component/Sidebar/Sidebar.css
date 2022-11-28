@@ -1,0 +1,135 @@
+@import url("https://fonts.googleapis.com/css2?family=Work+Sans&display=swap");
+/* Toggle Styles */
+
+#wrapper {
+  padding-left: 0;
+  -webkit-transition: all 0.5s ease;
+  -moz-transition: all 0.5s ease;
+  -o-transition: all 0.5s ease;
+  transition: all 0.5s ease;
+}
+
+#wrapper.toggled {
+  padding-left: 250px;
+}
+
+#sidebar-wrapper {
+  z-index: 1000;
+  position: fixed;
+  left: 250px;
+  width: 0;
+  height: 100%;
+  margin-left: -250px;
+  overflow-y: auto;
+  background: #fff;
+  -webkit-transition: all 0.5s ease;
+  -moz-transition: all 0.5s ease;
+  -o-transition: all 0.5s ease;
+  transition: all 0.5s ease;
+}
+
+#wrapper.toggled #sidebar-wrapper {
+  width: 250px;
+}
+
+#page-content-wrapper {
+  width: 100%;
+  position: absolute;
+  padding: 15px;
+}
+
+#wrapper.toggled #page-content-wrapper {
+  position: absolute;
+  margin-right: -250px;
+}
+
+/* Sidebar Styles */
+
+.sidebar {
+    font-family: "Work Sans", sans-serif;;
+}
+
+.sidebar-nav {
+  position: absolute;
+  top: 0;
+  width: 250px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.sidebar-nav li {
+  text-indent: 20px;
+  line-height: 40px;
+}
+
+.sidebar-nav li .nav-link {
+  display: block;
+  text-decoration: none;
+  color: #999999;
+}
+
+.sidebar-nav li .nav-link:hover {
+  text-decoration: none;
+  color: #fff !important;
+  width: 200px;
+  height: 40px;
+  background: #f5d500;
+  border-radius: 4px;
+}
+
+.sidebar-nav li .nav-link:active,
+.sidebar-nav li .nav-link:focus {
+  text-decoration: none;
+}
+
+.sidebar-nav > .sidebar-brand {
+  height: 65px;
+  font-size: 18px;
+  line-height: 60px;
+}
+
+.sidebar-nav > .sidebar-brand .nav-link {
+  color: #999999;
+}
+
+.sidebar-nav > .sidebar-brand .nav-link:hover {
+  color: #fff;
+  background: none;
+}
+
+.content {
+  font-family: "Work Sans", sans-serif;;
+  margin-left: 260px;
+  width: 800px;
+}
+
+@media (min-width: 768px) {
+  #wrapper {
+    padding-left: 250px;
+  }
+
+  #wrapper.toggled {
+    padding-left: 0;
+  }
+
+  #sidebar-wrapper {
+    width: 250px;
+    background-color: #fff;
+    box-shadow: 2px -2px 12px rgba(0, 0, 0, 0.1);
+  }
+
+  #wrapper.toggled #sidebar-wrapper {
+    width: 0;
+  }
+
+  #page-content-wrapper {
+    padding: 20px;
+    position: relative;
+  }
+
+  #wrapper.toggled #page-content-wrapper {
+    position: relative;
+    margin-right: 0;
+  }
+}
