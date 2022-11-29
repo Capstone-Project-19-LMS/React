@@ -1,0 +1,31 @@
+.jumbotron {
+  max-width: 1444px;
+  height: 730px;
+  background: url(../../../assets/img/jumbotron.png);
+}
+
+.tagline-brand {
+  position: absolute;
+  width: 455px;
+  height: 38px;
+  left: 96px;
+  top: 224px;
+  text-align: start;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 32px;
+  line-height: 38px;
+}
+
+.deskripsi-brand {
+  position: absolute;
+  height: 28px;
+  left: 96px;
+  top: 274px;
+  text-align: start;
+  font-family: "Work Sans";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 28px;
+}

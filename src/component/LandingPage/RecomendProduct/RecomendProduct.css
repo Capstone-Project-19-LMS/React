@@ -1,0 +1,64 @@
+.title-product {
+  text-align: start;
+  padding-left: 10px;
+  font-family: "Work Sans";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 23px;
+}
+.title {
+  margin-top: 50px;
+  margin-bottom: 20px;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 32px;
+  line-height: 38px;
+}
+.subtitle {
+  font-style: normal;
+  font-family: "Work Sans";
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 28px;
+}
+.meet-product {
+  text-align: end;
+  padding-right: 20px;
+  padding-top: 20px;
+  font-family: "Work Sans";
+}
+.price-product {
+  text-align: end;
+  padding-right: 20px;
+  font-weight: bold;
+}
+.grid-container {
+  display: grid;
+  column-gap: 50px;
+  grid-template-columns: auto auto auto;
+  background-color: #2196f3;
+  padding: 10px;
+}
+
+.box {
+  box-sizing: border-box;
+  margin: 50px 30px;
+  width: 402px;
+  height: 405px;
+
+  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+
+  /* LOGO/Logo 2 */
+
+  background: #ffffff;
+  /* PROTOTYPE/Abu 2 */
+
+  border: 1px solid #afaeac;
+  border-radius: 12px;
+}
+.bottom-right {
+  position: absolute;
+  bottom: 8px;
+  right: 16px;
+}
