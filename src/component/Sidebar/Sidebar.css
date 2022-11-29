@@ -104,13 +104,13 @@
   background: none;
 }
 
-.content {
+/* .content {
   font-family: "Work Sans", sans-serif;;
   margin-left: 260px;
   width: 1120px;
   position: absolute;
   display:inline-block
-}
+} */
 
 @media (min-width: 768px) {
   #wrapper {
@@ -131,7 +131,7 @@
     width: 0;
   }
 
-  #page-content-wrapper {
+  /* #page-content-wrapper {
     padding: 20px;
     position: relative;
   }
@@ -139,5 +139,5 @@
   #wrapper.toggled #page-content-wrapper {
     position: relative;
     margin-right: 0;
-  }
+  } */
 }

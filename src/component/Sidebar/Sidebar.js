@@ -69,7 +69,7 @@ const Sidebar = () => {
       </div>
       {/* <!-- /#sidebar-wrapper --> */}
 
-      {/* <!-- Page Content --> */}
+      {/* <!-- Page Content -->
       <div id="page-content-wrapper ">
         <div className="container-fluid">
           <div className="row">
@@ -81,7 +81,7 @@ const Sidebar = () => {
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };
