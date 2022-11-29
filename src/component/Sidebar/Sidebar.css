@@ -1,4 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Work+Sans&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Work+Sans:wght@700&display=swap');
 /* Toggle Styles */
 
 #wrapper {
@@ -74,13 +75,18 @@
   color: #fff !important;
   width: 200px;
   height: 40px;
-  background: #f5d500;
+  background: #2b2b29;
   border-radius: 4px;
 }
 
 .sidebar-nav li .nav-link:active,
 .sidebar-nav li .nav-link:focus {
   text-decoration: none;
+  color: #fff !important;
+  width: 200px;
+  height: 40px;
+  background: #f5d500;
+  border-radius: 4px;
 }
 
 .sidebar-nav > .sidebar-brand {
@@ -101,7 +107,9 @@
 .content {
   font-family: "Work Sans", sans-serif;;
   margin-left: 260px;
-  width: 800px;
+  width: 1120px;
+  position: absolute;
+  display:inline-block
 }
 
 @media (min-width: 768px) {
