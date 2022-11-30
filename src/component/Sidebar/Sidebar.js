@@ -1,89 +1,131 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import { BsFillDoorOpenFill } from "react-icons/bs";
-import logo from "../../assets/img/logo.png";
-import gencer from "../../assets/img/gencer.png";
-import "./Sidebar.css";
+import { NavLink } from "react-router-dom";
+import { FaBars} from "react-icons/fa";
+import { useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
+import SidebarMenu from "./SidebarMenu";
+import "./sidebar.css"
+import logo from "../../assets/img/Group 4862.png"
+import {routes} from "../../data/SidebarItem"
 
-const Sidebar = () => {
+
+
+const SideBar = ({ children }) => {
+  const [isOpen, setIsOpen] = useState(false);
+  const toggle = () => setIsOpen(!isOpen);
+  const inputAnimation = {
+    hidden: {
+      width: 0,
+      padding: 0,
+      transition: {
+        duration: 0.2,
+      },
+    },
+    show: {
+      width: "140px",
+      padding: "5px 15px",
+      transition: {
+        duration: 0.2,
+      },
+    },
+  };
+
+  const showAnimation = {
+    hidden: {
+      width: 0,
+      opacity: 0,
+      transition: {
+        duration: 0.5,
+      },
+    },
+    show: {
+      opacity: 1,
+      width: "auto",
+      transition: {
+        duration: 0.5,
+      },
+    },
+  };
+
   return (
-    <div>
-      <div className="sidebar d-flex" id="wrapper">
-        {/* <!-- Sidebar --> */}
-        <div id="sidebar-wrapper">
-          <ul className="sidebar-nav">
-            <Link className="sidebar-brand ms-3" to="#">
-              <span>
-                <img src={logo} className="logo" />
-              </span>
-              <span>
-                <img src={gencer} className="gencer" />
-              </span>
-            </Link>
-            <li className="nav-item">
-              <Link to="/dashboard" className="nav-link text-black ms-3 my-4">
-                Dashboard
-              </Link>
-            </li>
-            <li className="nav-item">
-              <Link to="/kursus" className="nav-link text-black ms-3 my-4">
-                Kursus
-              </Link>
-            </li>
-            <li className="nav-item">
-              <Link to="/materi" className="nav-link text-black ms-3 my-4">
-                Materi
-              </Link>
-            </li>
-            <li className="nav-item">
-              <Link to="/mentee" className="nav-link text-black ms-3 my-4">
-                Mentee
-              </Link>
-            </li>
-            <li className="nav-item">
-              <Link to="/tugas" className="nav-link text-black ms-3 my-4">
-                Tugas
-              </Link>
-            </li>
-            <li className="nav-item">
-              <Link to="/review" className="nav-link text-black ms-3 my-4">
-                Review
-              </Link>
-            </li>
-            <li className="nav-item">
-              <Link to="quiz" className="nav-link text-black ms-3 mt-4 mb-5">
-                Quiz
-              </Link>
-            </li>
-            <li className="nav-item">
-              <button
-                type="button"
-                className="btn btn-outline-danger ms-3 px-5"
-              >
-                <BsFillDoorOpenFill />
-                <span className="ms-3 fw-bold">Keluar</span>
-              </button>
-            </li>
-          </ul>
-        </div>
-      </div>
-      {/* <!-- /#sidebar-wrapper --> */}
+    <>
+      <div className="main-container">
+        <motion.div
+          animate={{
+            width: isOpen ? "200px" : "45px",
 
-      {/* <!-- Page Content -->
-      <div id="page-content-wrapper ">
-        <div className="container-fluid">
-          <div className="row">
-            <div className="content">
-              <div className="heading"></div>
-              <h3 className="fw-bold text-center heading ms-4">
-                Sidebar
-              </h3>
+            transition: {
+              duration: 0.5,
+              type: "spring",
+              damping: 10,
+            },
+          }}
+          className={`sidebar `}
+        >
+          <div className="top_section">
+            <AnimatePresence>
+              {isOpen && (
+                <motion.h1
+                  variants={showAnimation}
+                  initial="hidden"
+                  animate="show"
+                  exit="hidden"
+                  className="logo"
+                >
+                  <img className="logo" src={logo} alt="" />
+                  
+                </motion.h1>
+              )}
+            </AnimatePresence>
+
+            <div className="bars">
+              <FaBars onClick={toggle} />
             </div>
           </div>
-        </div>
-      </div> */}
-    </div>
+          
+          <section className="routes">
+            {routes.map((route, index) => {
+              if (route.subRoutes) {
+                return (
+                  <SidebarMenu
+                    setIsOpen={setIsOpen}
+                    route={route}
+                    showAnimation={showAnimation}
+                    isOpen={isOpen}
+                  />
+                );
+              }
+
+              return (
+                <NavLink
+                  to={route.path}
+                  key={index}
+                  className="link"
+                  activeClassName="active"
+                >
+                  <div className="icon">{route.icon}</div>
+                  <AnimatePresence>
+                    {isOpen && (
+                      <motion.div
+                        variants={showAnimation}
+                        initial="hidden"
+                        animate="show"
+                        exit="hidden"
+                        className="link_text"
+                      >
+                        {route.name}
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </NavLink>
+              );
+            })}
+          </section>
+        </motion.div>
+
+        <main>{children}</main>
+      </div>
+    </>
   );
 };
 
-export default Sidebar;
+export default SideBar;
