@@ -3,7 +3,7 @@ import { FaBars} from "react-icons/fa";
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import SidebarMenu from "./SidebarMenu";
-import "./sidebar.css"
+import "./Sidebar.css"
 import logo from "../../assets/img/Group 4862.png"
 import {routes} from "../../data/SidebarItem"
 

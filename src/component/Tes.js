@@ -1,6 +1,5 @@
-import Footer from "./Footer/Footer"
-import Navbar from "./Navbar/Navbar"
-import SideBar from "./Sidebar/SideBar"
+
+import SideBar from "./Sidebar/Sidebar"
 
 function Tes() {
     return (
