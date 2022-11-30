@@ -1,14 +1,16 @@
 import Footer from "./Footer/Footer"
+import Kursus from "./Kursus/Kursus"
 import Navbar from "./Navbar/Navbar"
 
-function Tes() {
+function SideContent() {
     return (
         <>
         <Navbar />
-        <h1>Tes Home</h1>
+        <Kursus/>
         <Footer />
         </>
+        
     )
 }
 
-export default Tes
+export default SideContent

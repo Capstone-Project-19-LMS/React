@@ -1,10 +1,12 @@
 import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Tes from "../component/Tes";
 import NotFoundPage from "../pages/NotFoundPage";
 import Register from "../component/LoginRegister/Register";
 import Login from "../component/LoginRegister/Login";
 import LandingPage from "../pages/LandingPage";
+
+import Sidebar from "../component/Sidebar/Sidebar";
+import SideContent from "../component/SideContent";
 
 const SetupRouters = () => {
   return (
@@ -15,6 +17,7 @@ const SetupRouters = () => {
 
         <Route path="/Register" element={<Register />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/kursus" element={<SideContent/>} />
       </Routes>
     </BrowserRouter>
   );

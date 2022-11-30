@@ -4,6 +4,7 @@ import { BsFillDoorOpenFill } from "react-icons/bs";
 import logo from "../../assets/img/logo.png";
 import gencer from "../../assets/img/gencer.png";
 import "./Sidebar.css";
+import SideContent from "../SideContent";
 
 const Sidebar = () => {
   return (
@@ -67,21 +68,22 @@ const Sidebar = () => {
           </ul>
         </div>
       </div>
-      {/* <!-- /#sidebar-wrapper --> */}
 
-      {/* <!-- Page Content -->
       <div id="page-content-wrapper ">
         <div className="container-fluid">
           <div className="row">
             <div className="content">
-              <div className="heading"></div>
+              <div className="heading">
+
               <h3 className="fw-bold text-center heading ms-4">
                 Sidebar
               </h3>
+              <SideContent/>
+              </div>
             </div>
           </div>
         </div>
-      </div> */}
+      </div>
     </div>
   );
 };
