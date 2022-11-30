@@ -5,6 +5,7 @@ import NotFoundPage from "../pages/NotFoundPage";
 import Register from "../component/LoginRegister/Register";
 import Login from "../component/LoginRegister/Login";
 import LandingPage from "../pages/LandingPage";
+import Dashboard from "../pages/Dashboard/Dashboard";
 
 
 const SetupRouters = () => {
