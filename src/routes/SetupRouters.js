@@ -5,6 +5,7 @@ import NotFoundPage from "../pages/NotFoundPage";
 import Register from "../component/LoginRegister/Register";
 import Login from "../component/LoginRegister/Login";
 import LandingPage from "../pages/LandingPage";
+import Dashboard from "../pages/Dashboard/Dashboard";
 
 const SetupRouters = () => {
   return (
@@ -12,6 +13,7 @@ const SetupRouters = () => {
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="*" element={<NotFoundPage />} />
+        <Route path="/Dashboard" element={<Dashboard />} />
 
         <Route path="/Register" element={<Register />} />
         <Route path="/login" element={<Login />} />
