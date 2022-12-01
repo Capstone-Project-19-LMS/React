@@ -1,11 +1,11 @@
-import image from "../../../assets/img/about.png";
+import about from "../../../assets/img/about.png";
 import "./About.css";
 
 function About() {
   return (
     <div style={{ backgroundColor: "#F5D500", textAlign: "center" }}>
       <h1 className="title-about">Tentang Kami</h1>
-      <img src={image} alt="About image" />
+      <img src={about} alt="About image" />
       <div className="subtitle-about">
         GenCer adalah platform yang memudahkan mentee dalam
         <br />
