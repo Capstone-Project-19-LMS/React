@@ -1,0 +1,56 @@
+@import url('https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;700&display=swap');
+
+
+
+.heading {
+    margin-bottom: 44px;
+}
+
+.heading-dashboard{
+    font-size: 24px;
+    font-weight: 700;
+    color: #000000;
+}
+
+.sofi {
+    font-weight: 700;
+    font-size: 20px;
+    color: #000;
+}
+
+.instruksi {
+    font-weight: 400;
+    font-size: 16px;
+}
+
+.card-dashboard {
+    margin-left: 43px;
+    margin-right: 43px;
+    margin-bottom: 38px;
+}
+
+.card {
+    border: 1px solid #F5F4F2;
+    box-shadow: 4px 4px 12px rgba(0, 0, 0, 0.05);
+    border-radius: 8px;
+}
+
+.card-title {
+    font-weight: 700;
+    font-size: 18px;
+    color: #000;
+    line-height: 18.77px;
+}
+
+.card-1{
+    height: 212px;
+    margin-bottom: 47px !important;
+}
+
+.card-2{
+    height: 332px;
+}
+
+.card-3{
+    height: 551px;
+}
