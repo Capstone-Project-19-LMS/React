@@ -13,32 +13,32 @@ export const routes = [
       icon: <BsFillHouseFill />,
     },
     {
-      path: "/dashboard/kursus",
+      path: "/kursus",
       name: "Kursus",
       icon: <BsFillBriefcaseFill />,
     },
     {
-      path: "/dashboard/materi",
+      path: "/materi",
       name: "Materi",
       icon: <BsListCheck />,
     },
     {
-      path: "/dashboard/mantee",
+      path: "/mantee",
       name: "Mantee",
       icon: <BsPeopleFill />,
     },
     {
-      path: "/dashboard/tugas",
+      path: "/tugas",
       name: "Tugas",
       icon: <BsLayoutTextWindowReverse />,
     },
     {
-      path: "/dashboard/review",
+      path: "/review",
       name: "Review",
       icon: <BsFillAwardFill />,
     },
     {
-      path: "/dashboard/quiz",
+      path: "/quiz",
       name: "Quiz",
       icon: <BsFillStarFill />,
     }

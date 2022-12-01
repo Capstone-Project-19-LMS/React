@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { Button, Container, Row, Col, Form } from "react-bootstrap";
 import logo from "../../assets/img/Group 4861.png";
 function App() {
@@ -33,9 +34,13 @@ function App() {
                   </Form.Group>
 
                   <div className="text-center">
+                    <Link to="/dashboard">
+
+                    
                     <Button type="submit" className="btnMasuk">
                       MASUK
                     </Button>
+                    </Link>
                   </div>
                 </Form>
               </div>

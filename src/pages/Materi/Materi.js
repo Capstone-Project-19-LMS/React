@@ -5,6 +5,7 @@ import SideBar from "../../component/Sidebar/Sidebar";
 import "./materi.css";
 import Footer from "../../component/Footer/Footer";
 import {DataMateri} from "../../data/Data";
+import Swal from 'sweetalert2'
 
 import {
   BsSearch,
@@ -14,6 +15,27 @@ import {
 } from "react-icons/bs";
 
 const Materi = () => {
+  
+  const HandleDelete = () =>{
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire(
+          'Deleted!',
+          'Your file has been deleted.',
+          'success'
+        )
+      }
+    })
+  }
+
   return (
     <div>
       <SideBar>
@@ -85,7 +107,7 @@ const Materi = () => {
                       <Button size="sm" variant="success">
                         <BsFillPencilFill /> Edit
                       </Button>
-                      <Button size="sm" variant="danger">
+                      <Button size="sm" variant="danger" onClick={HandleDelete}>
                         <BsTrashFill /> Hapus
                       </Button>
                     </Stack>

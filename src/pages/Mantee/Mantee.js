@@ -5,6 +5,7 @@ import SideBar from "../../component/Sidebar/Sidebar";
 import "./mantee.css";
 import Footer from "../../component/Footer/Footer";
 import {DataMantee} from "../../data/Data";
+import Swal from 'sweetalert2'
 
 import {
   BsSearch,
@@ -14,6 +15,27 @@ import {
 } from "react-icons/bs";
 
 const Mantee = () => {
+
+  const HandleDelete = () =>{
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire(
+          'Deleted!',
+          'Your file has been deleted.',
+          'success'
+        )
+      }
+    })
+  }
+
   return (
     <div>
       <SideBar>
@@ -86,7 +108,7 @@ const Mantee = () => {
                       <Button size="sm" variant="success">
                         <BsFillPencilFill /> Edit
                       </Button>
-                      <Button size="sm" variant="danger">
+                      <Button size="sm" variant="danger" onClick={HandleDelete}>
                         <BsTrashFill /> Hapus
                       </Button>
                     </Stack>

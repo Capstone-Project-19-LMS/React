@@ -1,6 +1,5 @@
 import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Tes from "../component/Tes";
 import NotFoundPage from "../pages/NotFoundPage";
 import Register from "../component/LoginRegister/Register";
 import Login from "../component/LoginRegister/Login";
@@ -21,10 +20,10 @@ const SetupRouters = () => {
         <Route path="/Register" element={<Register />} />
         <Route path="/login" element={<Login />} />
         <Route path="/dashboard" element={<Dashboard />}/>
-        <Route path="/dashboard/kursus" element={<Kursus />}/>
-        <Route path="/dashboard/materi" element={<Materi />}/>
-        <Route path="/dashboard/mantee" element={<Mantee />}/>
-        <Route path="/dashboard/tugas" element={<Tugas />}/>
+        <Route path="/materi" element={<Materi />}/>
+        <Route path="/mantee" element={<Mantee />}/>
+        <Route path="/kursus" element={<Kursus />}/>
+        <Route path="/tugas" element={<Tugas />}/>
 
       </Routes>
     </BrowserRouter>
