@@ -2,9 +2,9 @@ import React from "react";
 import { Table, Container, Row, Col, Form, Button, Stack } from "react-bootstrap";
 import Profile from "../../assets/img/Profile.png";
 import SideBar from "../../component/Sidebar/Sidebar";
-import "./kursus.css";
+import "./tugas.css";
 import Footer from "../../component/Footer/Footer";
-import {DataKursus} from "../../data/Data";
+import {DataTugas} from "../../data/Data";
 
 import {
   BsSearch,
@@ -13,7 +13,7 @@ import {
   BsTrashFill,
 } from "react-icons/bs";
 
-const Kursus = () => {
+const Tugas = () => {
   return (
     <div>
       <SideBar>
@@ -21,7 +21,7 @@ const Kursus = () => {
           <div className="row heading">
             <div className="col"></div>
             <div className="col">
-              <h2 className="heading-dashboard text-center">Manage Kursus</h2>
+              <h2 className="heading-dashboard text-center">Manage Tugas</h2>
             </div>
             <div className="col">
               <div className="row">
@@ -39,49 +39,31 @@ const Kursus = () => {
               </div>
             </div>
           </div>
-          <div className="head">
-            <Container>
-              <Row>
-                <Col>
-                  <Form.Control
-                    className="search"
-                    placeholder="Search"
-                    aria-label="Username"
-                    aria-describedby="basic-addon1"
-                  />
-                </Col>
-                <Col className="btnTambah">
-                  <Button size="sm">
-                    <BsPlusLg /> Tambah Kursus
-                  </Button>{" "}
-                </Col>
-              </Row>
-            </Container>
-          </div>
+          
           <div>
             <Table striped hover>
               <thead>
                 <tr>
                   <th>ID</th>
-                  <th>Nama Kelas</th>
-                  <th>Kapasitas</th>
-                  <th>Kategori</th>
-                  <th>Harga</th>
+                  <th>Mantee</th>
+                  <th>File</th>
+                  <th>Kelas</th>
+                  <th>Waktu</th>
                   <th>Aksi</th>
                 </tr>
               </thead>
 
               <tbody>
 
-              {DataKursus.map((data, index) =>
+              {DataTugas.map((data, index) =>
               
               
                 <tr>
                   <td>{index + 1}</td>
-                  <td>{data.nama}</td>
-                  <td>{data.kapasitas} mantee</td>
-                  <td>{data.kategori}</td>
-                  <td>Rp. {data.harga}</td>
+                  <td>{data.mantee}</td>
+                  <td>{data.file}</td>
+                  <td>{data.kelas}</td>
+                  <td>{data.waktu}</td>
                   <td>
                     <Stack direction="horizontal" gap={3}>
                       <Button size="sm" variant="success">
@@ -104,4 +86,4 @@ const Kursus = () => {
   );
 };
 
-export default Kursus;
+export default Tugas;
