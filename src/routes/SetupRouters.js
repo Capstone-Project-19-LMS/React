@@ -6,6 +6,7 @@ import Register from "../component/LoginRegister/Register";
 import Login from "../component/LoginRegister/Login";
 import LandingPage from "../pages/LandingPage";
 import Dashboard from "../pages/Dashboard/Dashboard";
+import Kursus from "../pages/Kursus/Kursus";
 
 
 const SetupRouters = () => {
@@ -17,7 +18,7 @@ const SetupRouters = () => {
         <Route path="/Register" element={<Register />} />
         <Route path="/login" element={<Login />} />
         <Route path="/dashboard" element={<Dashboard />}/>
-        <Route path="/dashboard/kursus" element={<Tes />}/>
+        <Route path="/dashboard/kursus" element={<Kursus />}/>
 
       </Routes>
     </BrowserRouter>

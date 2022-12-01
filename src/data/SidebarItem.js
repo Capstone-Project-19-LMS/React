@@ -8,7 +8,7 @@ import { BsFillBriefcaseFill,
 
 export const routes = [
     {
-      path: "/",
+      path: "/dashboard",
       name: "Dashboard",
       icon: <BsFillHouseFill />,
     },
