@@ -1,11 +1,19 @@
-import React from "react";
-import { Table, Container, Row, Col, Form, Button, Stack } from "react-bootstrap";
+import React, { useState } from "react";
+import {
+  Table,
+  Container,
+  Row,
+  Col,
+  Form,
+  Button,
+  Stack,
+} from "react-bootstrap";
 import Profile from "../../assets/img/Profile.png";
 import SideBar from "../../component/Sidebar/Sidebar";
 import "./mantee.css";
 import Footer from "../../component/Footer/Footer";
-import {DataMantee} from "../../data/Data";
-import Swal from 'sweetalert2'
+import { DataMantee } from "../../data/Data";
+import Swal from "sweetalert2";
 
 import {
   BsSearch,
@@ -13,31 +21,29 @@ import {
   BsFillPencilFill,
   BsTrashFill,
 } from "react-icons/bs";
+import Modal from "./Modal";
 
 const Mantee = () => {
-
-  const HandleDelete = () =>{
+  const [openModal, setOpenModal] = useState(false);
+  const HandleDelete = () => {
     Swal.fire({
-      title: 'Are you sure?',
+      title: "Are you sure?",
       text: "You won't be able to revert this!",
-      icon: 'warning',
+      icon: "warning",
       showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, delete it!'
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        Swal.fire(
-          'Deleted!',
-          'Your file has been deleted.',
-          'success'
-        )
+        Swal.fire("Deleted!", "Your file has been deleted.", "success");
       }
-    })
-  }
+    });
+  };
 
   return (
     <div>
+      <Modal open={openModal} onClose={() => setOpenModal(false)} />
       <SideBar>
         <div className="container-fluid">
           <div className="row heading">
@@ -93,28 +99,33 @@ const Mantee = () => {
               </thead>
 
               <tbody>
+                {DataMantee.map((data, index) => (
+                  <tr>
+                    <td>{index + 1}</td>
+                    <td>{data.nama}</td>
+                    <td>{data.status}</td>
 
-              {DataMantee.map((data, index) =>
-              
-              
-                <tr>
-                  <td>{index + 1}</td>
-                  <td>{data.nama}</td>
-                  <td>{data.status}</td>
-          
-                  <td>{data.kelas}</td>
-                  <td>
-                    <Stack direction="horizontal" gap={3}>
-                      <Button size="sm" variant="success">
-                        <BsFillPencilFill /> Edit
-                      </Button>
-                      <Button size="sm" variant="danger" onClick={HandleDelete}>
-                        <BsTrashFill /> Hapus
-                      </Button>
-                    </Stack>
-                  </td>
-                </tr>
-                )}
+                    <td>{data.kelas}</td>
+                    <td>
+                      <Stack direction="horizontal" gap={3}>
+                        <Button
+                          size="sm"
+                          variant="success"
+                          onClick={() => setOpenModal(true)}
+                        >
+                          <BsFillPencilFill /> Edit
+                        </Button>
+                        <Button
+                          size="sm"
+                          variant="danger"
+                          onClick={HandleDelete}
+                        >
+                          <BsTrashFill /> Hapus
+                        </Button>
+                      </Stack>
+                    </td>
+                  </tr>
+                ))}
               </tbody>
             </Table>
           </div>
