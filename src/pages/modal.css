@@ -45,7 +45,7 @@
   .btnContainer {
     display: flex;
     
-    padding: 1rem 1rem;
+    /* padding: 1rem 1rem; */
   }
   .btnContainer button {
     width: 100%;

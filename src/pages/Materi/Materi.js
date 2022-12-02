@@ -13,11 +13,13 @@ import {
   BsFillPencilFill,
   BsTrashFill,
 } from "react-icons/bs";
-import Modal from "./Modal";
+import EditModal from "./EditModal";
+import TambahModal from "./TambahModal";
 
 const Materi = () => {
   
-  const [openModal, setOpenModal] = useState(false);
+  const [openEditModal, setOpenEditModal] = useState(false);
+  const [openTambahModal, setOpenTambahModal] = useState(false);
   const HandleDelete = () =>{
     Swal.fire({
       title: 'Are you sure?',
@@ -40,7 +42,8 @@ const Materi = () => {
 
   return (
     <div>
-      <Modal open={openModal} onClose={() => setOpenModal(false)} />
+      <EditModal open={openEditModal} onClose={() => setOpenEditModal(false)} />
+      <TambahModal open={openTambahModal} onClose={() => setOpenTambahModal(false)} />
       <SideBar>
         <div className="container-fluid">
           <div className="row heading">
@@ -76,7 +79,7 @@ const Materi = () => {
                   />
                 </Col>
                 <Col className="btnTambah">
-                  <Button size="sm">
+                  <Button size="sm" onClick={() => setOpenTambahModal(true)}>
                     <BsPlusLg /> Tambah Materi
                   </Button>{" "}
                 </Col>
@@ -107,7 +110,7 @@ const Materi = () => {
                   <td>{data.kelas}</td>
                   <td>
                     <Stack direction="horizontal" gap={3}>
-                      <Button size="sm" variant="success" onClick={() => setOpenModal(true)}>
+                      <Button size="sm" variant="success" onClick={() => setOpenEditModal(true)}>
                         <BsFillPencilFill /> Edit
                       </Button>
                       <Button size="sm" variant="danger" onClick={HandleDelete}>

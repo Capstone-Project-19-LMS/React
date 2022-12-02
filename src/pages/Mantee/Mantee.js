@@ -15,16 +15,13 @@ import Footer from "../../component/Footer/Footer";
 import { DataMantee } from "../../data/Data";
 import Swal from "sweetalert2";
 
-import {
-  BsSearch,
-  BsPlusLg,
-  BsFillPencilFill,
-  BsTrashFill,
-} from "react-icons/bs";
-import Modal from "./Modal";
+import { BsPlusLg, BsFillPencilFill, BsTrashFill } from "react-icons/bs";
+import EditModal from "./EditModal";
+import TambahModal from "./TambahModal";
 
 const Mantee = () => {
-  const [openModal, setOpenModal] = useState(false);
+  const [openEditModal, setOpenEditModal] = useState(false);
+  const [openTambahModal, setOpenTambahModal] = useState(false);
   const HandleDelete = () => {
     Swal.fire({
       title: "Are you sure?",
@@ -43,7 +40,8 @@ const Mantee = () => {
 
   return (
     <div>
-      <Modal open={openModal} onClose={() => setOpenModal(false)} />
+      <EditModal open={openEditModal} onClose={() => setOpenEditModal(false)} />
+      <TambahModal open={openTambahModal} onClose={() => setOpenTambahModal(false)} />
       <SideBar>
         <div className="container-fluid">
           <div className="row heading">
@@ -79,7 +77,7 @@ const Mantee = () => {
                   />
                 </Col>
                 <Col className="btnTambah">
-                  <Button size="sm">
+                  <Button size="sm" onClick={() => setOpenTambahModal(true)}>
                     <BsPlusLg /> Tambah Mantee
                   </Button>{" "}
                 </Col>
@@ -104,14 +102,13 @@ const Mantee = () => {
                     <td>{index + 1}</td>
                     <td>{data.nama}</td>
                     <td>{data.status}</td>
-
                     <td>{data.kelas}</td>
                     <td>
                       <Stack direction="horizontal" gap={3}>
                         <Button
                           size="sm"
                           variant="success"
-                          onClick={() => setOpenModal(true)}
+                          onClick={() => setOpenEditModal(true)}
                         >
                           <BsFillPencilFill /> Edit
                         </Button>

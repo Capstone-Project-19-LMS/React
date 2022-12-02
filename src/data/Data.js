@@ -76,33 +76,33 @@ export const DataMateri = [
 export const DataMantee = [
   {
     id: 1,
-    nama: "Flutter",
+    nama: "aldi",
     status: "online",
     kelas: "Coding",
    
   },
   {
     id: 2,
-    nama: "Flutter",
+    nama: "anwar",
     status: "online",
     kelas: "Coding",
   },
   {
     id: 3,
-    nama: "Flutter",
+    nama: "nur",
     status: "online",
     kelas: "Coding",
   },
 
   {
     id: 4,
-    nama: "Flutter",
+    nama: "rio",
     status: "online",
     kelas: "Coding",
   },
   {
     id: 5,
-    nama: "Flutter",
+    nama: "purba",
     status: "online",
     kelas: "Coding",
   },
@@ -111,39 +111,105 @@ export const DataMantee = [
 export const DataTugas = [
   {
     id: 1,
-    mantee: "Flutter",
+    mantee: "nama 1",
     file: "online",
     kelas: "Coding",
-    waktu: "2018/02/01 14:16:00"
+    waktu: "2018/02/01 14:16:00",
+    nilai: 80
    
   },
   {
     id: 2,
-    mantee: "Flutter",
+    mantee: "nama 2",
     file: "online",
     kelas: "Coding",
-    waktu: "2018/02/01 14:16:00"
+    waktu: "2018/02/01 14:16:00",
+    nilai: 80
   },
   {
     id: 3,
-    mantee: "Flutter",
+    mantee: "nama 3",
     file: "online",
     kelas: "Coding",
-    waktu: "2018/02/01 14:16:00"
+    waktu: "2018/02/01 14:16:00",
+    nilai: 80
   },
 
   {
     id: 4,
-    mantee: "Flutter",
+    mantee: "nama 4",
     file: "online",
     kelas: "Coding",
-    waktu: "2018/02/01 14:16:00"
+    waktu: "2018/02/01 14:16:00",
+    nilai: 80
   },
   {
     id: 5,
-    mantee: "Flutter",
+    mantee: "nama 5",
     file: "online",
     kelas: "Coding",
-    waktu: "2018/02/01 14:16:00"
+    waktu: "2018/02/01 14:16:00",
+    nilai: 80
+  },
+];
+
+export const DataKelas =[
+  {
+    id: 1,
+    kelas:"Flutter"
+  },
+  {
+    id: 2,
+    kelas:"React"
+  },
+  {
+    id: 3,
+    kelas:"UI UX"
+  },
+  {
+    id: 4,
+    kelas:"Golang"
+  },
+
+]
+
+export const DataRating = [
+  {
+    id: 1,
+    nama: "nama 1",
+    rating: "online",
+    kelas: "Coding",
+    review: "2018/02/01 14:16:00",
+   
+   
+  },
+  {
+    id: 2,
+    nama: "nama 1",
+    rating: "online",
+    kelas: "Coding",
+    review: "2018/02/01 14:16:00",
+  },
+  {
+    id: 3,
+    nama: "nama 1",
+    rating: "online",
+    kelas: "Coding",
+    review: "2018/02/01 14:16:00",
+  },
+
+  {
+    id: 4,
+    nama: "nama 1",
+    rating: "online",
+    kelas: "Coding",
+    review: "2018/02/01 14:16:00",
+  },
+  {
+    id: 5,
+    nama: "nama 1",
+    rating: "online",
+    kelas: "Coding",
+    review: "2018/02/01 14:16:00",
   },
 ];
