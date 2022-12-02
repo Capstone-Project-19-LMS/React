@@ -8,6 +8,7 @@ import Kursus from "../pages/Kursus/Kursus";
 import Materi from "../pages/Materi/Materi";
 import Mantee from "../pages/Mantee/Mantee";
 import Tugas from "../pages/Tugas/Tugas";
+import Review from "../pages/Review/Review";
 
 
 const SetupRouters = () => {
@@ -22,6 +23,7 @@ const SetupRouters = () => {
         <Route path="/mantee" element={<Mantee />}/>
         <Route path="/kursus" element={<Kursus />}/>
         <Route path="/tugas" element={<Tugas />}/>
+        <Route path="/review" element={<Review/>}/>
 
       </Routes>
     </BrowserRouter>

@@ -3,8 +3,9 @@ import { BsXCircleFill } from "react-icons/bs";
 import "../modal.css";
 import { Form } from "react-bootstrap";
 import Swal from "sweetalert2";
+import { DataKelas } from "../../data/Data";
 
-const Modal = ({ open, onClose }) => {
+const TambahModal = ({ open, onClose }) => {
   if (!open) return null;
 
   const HandleSimpan = () => {
@@ -54,59 +55,31 @@ const Modal = ({ open, onClose }) => {
         className="modalContainer"
       >
         <div className="modalRight">
-          <h2 className="modalTitle">Tambah</h2>
+          <h2 className="modalTitle">Tambah Materi</h2>
           <p className="closeBtn" onClick={onClose}>
             <BsXCircleFill />
           </p>
           <div className="content">
             <Form>
-              <Form.Group className="mb-2">
-                <Form.Label>Nama Mantee</Form.Label>
-                <Form.Control
-                  type="text"
-                  placeholder="Introduction"
-                  disabled
-                  readOnly
-                />
+              <Form.Group className="mb-3">
+                <Form.Label>Materi</Form.Label>
+                <Form.Control type="text" placeholder="Introduction" />
               </Form.Group>
-              <Form.Group className="mb-2">
+              <Form.Group controlId="formFile" className="mb-3">
                 <Form.Label>File</Form.Label>
-                <Form.Control
-                  type="text"
-                  placeholder="Introduction"
-                  disabled
-                  readOnly
-                />
+                <Form.Control type="file" />
               </Form.Group>
-              <Form.Group className="mb-2" controlId="formBasicPassword">
+
+              <Form.Group>
                 <Form.Label>Kelas</Form.Label>
-                <Form.Control
-                  type="text"
-                  placeholder="Become Profesional UI UX"
-                  disabled
-                  readOnly
-                />
-              </Form.Group>
-              <Form.Group className="mb-2" controlId="formBasicPassword">
-                <Form.Label>Waktu</Form.Label>
-                <Form.Control
-                  type="text"
-                  placeholder="Become Profesional UI UX"
-                  disabled
-                  readOnly
-                />
-              </Form.Group>
-              <Form.Group className="mb-2" controlId="formBasicPassword">
-                <Form.Label>Nilai</Form.Label>
-                <Form.Control
-                  type="text"
-                  placeholder="90"
-                 
-                />
+                <Form.Select aria-label="Default select example">
+                  <option>--Kelas--</option>
+                  {DataKelas.map((kelas, index) => (
+                    <option value={kelas.id}>{kelas.kelas}</option>
+                  ))}
+                </Form.Select>
               </Form.Group>
             </Form>
-
-            
           </div>
           <div className="btnContainer">
             <button className="btnPrimary" onClick={HandleSimpan}>
@@ -122,4 +95,4 @@ const Modal = ({ open, onClose }) => {
   );
 };
 
-export default Modal;
+export default TambahModal;

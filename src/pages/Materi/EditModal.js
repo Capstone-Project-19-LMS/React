@@ -2,21 +2,21 @@ import React from "react";
 import { BsXCircleFill } from "react-icons/bs";
 import "../modal.css";
 import { Form } from "react-bootstrap";
-import Swal from 'sweetalert2'
+import Swal from "sweetalert2";
+import { DataKelas } from "../../data/Data";
 
-const Modal = ({ open, onClose }) => {
-  
+const EditModal = ({ open, onClose }) => {
   if (!open) return null;
 
-  const HandleSimpan = () =>{
+  const HandleSimpan = () => {
     Swal.fire({
-      title: 'Simpan Perubahan?',
-      
-      icon: 'question',
+      title: "Simpan Perubahan?",
+
+      icon: "question",
       showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes'
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes",
     }).then((result) => {
       if (result.isConfirmed) {
         let timerInterval;
@@ -34,7 +34,6 @@ const Modal = ({ open, onClose }) => {
           },
           willClose: () => {
             clearInterval(timerInterval);
-    
           },
         }).then((result) => {
           /* Read more about handling dismissals below */
@@ -44,12 +43,9 @@ const Modal = ({ open, onClose }) => {
           }
         });
       }
-    })
-
-
-    
+    });
   };
-  
+
   return (
     <div onClick={onClose} className="overlay">
       <div
@@ -59,7 +55,7 @@ const Modal = ({ open, onClose }) => {
         className="modalContainer"
       >
         <div className="modalRight">
-          <h2 className="modalTitle">Tambah</h2>
+          <h2 className="modalTitle">Edit Materi</h2>
           <p className="closeBtn" onClick={onClose}>
             <BsXCircleFill />
           </p>
@@ -74,24 +70,22 @@ const Modal = ({ open, onClose }) => {
                 <Form.Control type="file" />
               </Form.Group>
 
-              <Form.Group className="mb-3" controlId="formBasicPassword">
+              <Form.Group>
                 <Form.Label>Kelas</Form.Label>
-                <Form.Control
-                  type="text"
-                  placeholder="Become Profesional UI UX"
-                />
+                <Form.Select aria-label="Default select example">
+                  <option>--Kelas--</option>
+                  {DataKelas.map((kelas, index) => (
+                    <option value={kelas.id}>{kelas.kelas}</option>
+                  ))}
+                </Form.Select>
               </Form.Group>
             </Form>
-
-            {/* <p>Do you want a</p>
-            <h1>$20 CREDIT</h1>
-            <p>for your first tade?</p> */}
           </div>
           <div className="btnContainer">
             <button className="btnPrimary" onClick={HandleSimpan}>
               <span className="bold">Simpan</span>
             </button>
-            <button className="btnOutline">
+            <button className="btnOutline" onClick={onClose}>
               <span className="bold">Batal</span>
             </button>
           </div>
@@ -101,4 +95,4 @@ const Modal = ({ open, onClose }) => {
   );
 };
 
-export default Modal;
+export default EditModal;

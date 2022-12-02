@@ -54,3 +54,12 @@
 .card-3{
     height: 551px;
 }
+
+.dashboard {
+    font-family:'Work Sans', sans-serif;
+}
+
+.text-manage {
+    font-weight: 700;
+    font-size: 16px;
+}
