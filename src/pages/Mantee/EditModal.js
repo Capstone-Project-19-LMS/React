@@ -4,7 +4,7 @@ import "../modal.css";
 import { Form } from "react-bootstrap";
 import Swal from "sweetalert2";
 
-const Modal = ({ open, onClose }) => {
+const EditModal = ({ open, onClose }) => {
   if (!open) return null;
 
   const HandleSimpan = () => {
@@ -54,31 +54,25 @@ const Modal = ({ open, onClose }) => {
         className="modalContainer"
       >
         <div className="modalRight">
-          <h2 className="modalTitle">Tambah</h2>
+          <h2 className="modalTitle">Edit Mantee</h2>
           <p className="closeBtn" onClick={onClose}>
             <BsXCircleFill />
           </p>
           <div className="content">
             <Form>
-              <Form.Group className="mb-2">
+              <Form.Group className="mb-3">
                 <Form.Label>Nama Mantee</Form.Label>
-                <Form.Control
-                  type="text"
-                  placeholder="Introduction"
-                  disabled
-                  readOnly
-                />
+                <Form.Control type="text" placeholder="Introduction"  disabled readOnly/>
               </Form.Group>
-              <Form.Group className="mb-2">
-                <Form.Label>File</Form.Label>
-                <Form.Control
-                  type="text"
-                  placeholder="Introduction"
-                  disabled
-                  readOnly
-                />
+              <Form.Group>
+                <Form.Label>Status</Form.Label>
+                <Form.Select aria-label="Default select example">
+                  <option value="1">Aktif</option>
+                  <option value="2">Non Aktif</option>
+                </Form.Select>
               </Form.Group>
-              <Form.Group className="mb-2" controlId="formBasicPassword">
+
+              <Form.Group className="mb-3" controlId="formBasicPassword">
                 <Form.Label>Kelas</Form.Label>
                 <Form.Control
                   type="text"
@@ -87,26 +81,7 @@ const Modal = ({ open, onClose }) => {
                   readOnly
                 />
               </Form.Group>
-              <Form.Group className="mb-2" controlId="formBasicPassword">
-                <Form.Label>Waktu</Form.Label>
-                <Form.Control
-                  type="text"
-                  placeholder="Become Profesional UI UX"
-                  disabled
-                  readOnly
-                />
-              </Form.Group>
-              <Form.Group className="mb-2" controlId="formBasicPassword">
-                <Form.Label>Nilai</Form.Label>
-                <Form.Control
-                  type="text"
-                  placeholder="90"
-                 
-                />
-              </Form.Group>
             </Form>
-
-            
           </div>
           <div className="btnContainer">
             <button className="btnPrimary" onClick={HandleSimpan}>
@@ -122,4 +97,4 @@ const Modal = ({ open, onClose }) => {
   );
 };
 
-export default Modal;
+export default EditModal;

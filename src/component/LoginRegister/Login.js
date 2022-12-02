@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { Button, Container, Row, Col, Form } from "react-bootstrap";
 import logo from "../../assets/img/Group 4861.png";
+import "./style.css"
 function App() {
   return (
     <div className="form">
@@ -22,7 +23,7 @@ function App() {
               </div>
 
               <div>
-                <Form>
+                <Form className="FormLogin">
                   <Form.Group className="mb-3" controlId="formBasicEmail">
                     <Form.Label>Email</Form.Label>
                     <Form.Control type="email" placeholder="Enter email" />

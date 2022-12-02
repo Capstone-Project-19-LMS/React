@@ -73,6 +73,7 @@ const Tugas = () => {
                   <th>File</th>
                   <th>Kelas</th>
                   <th>Waktu</th>
+                  <th>Nilai</th>
                   <th>Aksi</th>
                 </tr>
               </thead>
@@ -88,6 +89,7 @@ const Tugas = () => {
                   <td>{data.file}</td>
                   <td>{data.kelas}</td>
                   <td>{data.waktu}</td>
+                  <td>{data.nilai}</td>
                   <td>
                     <Stack direction="horizontal" gap={3}>
                       <Button size="sm" variant="success" onClick={() => setOpenModal(true)}>
