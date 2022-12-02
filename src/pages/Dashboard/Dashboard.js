@@ -5,10 +5,13 @@ import { BsBook } from "react-icons/bs";
 import { BsVectorPen } from "react-icons/bs";
 import { FaUserFriends } from "react-icons/fa";
 import Footer from "../../component/Footer/Footer";
+import SideBar from "../../component/Sidebar/Sidebar";
 
 const Dashboard = () => {
   return (
     <div>
+      <SideBar>
+
       <div className="container-fluid">
         <div className="row heading">
           <div className="col"></div>
@@ -103,7 +106,9 @@ const Dashboard = () => {
           </div>
         </div>
       </div>
+      </SideBar>
     <Footer/>
+
     </div>
   );
 };

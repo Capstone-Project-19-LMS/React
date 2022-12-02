@@ -59,7 +59,7 @@ const Navbar = () => {
                 <b className="caret"></b>
               </Link>
               <div className="dropdown-menu">
-                  <Link className="dropdown-item" to="#"><BsFillDoorClosedFill/>
+                  <Link className="dropdown-item" to="/login"><BsFillDoorClosedFill/>
                     <span className="ms-3">Masuk</span>
                   </Link>
               </div>

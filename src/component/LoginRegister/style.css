@@ -1,14 +1,19 @@
 .form{
   margin:0;
+  width:100vw;
+  height:100vh;
+  overflow: hidden;
+
 }
 
 
-.title{
+/* .title{
   margin-right: 100px;
   margin-top: 200px;
-}
+} */
 form {
   width: 23rem;
+  margin: auto;
 }
 
 input {
@@ -35,14 +40,15 @@ input {
 }
 
 .image{
-  height:650px;
+  height:100vh;
 }
 
 .colImage{
   background-color: rgb(245, 213, 0) ;
 }
 .formGroup{
-  padding-top: 100px;
+  padding-top: 90px;
+  
 }
 
 @media (min-width: 768px) {
