@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Table, Container, Row, Col, Form, Button, Stack } from "react-bootstrap";
 import Profile from "../../assets/img/Profile.png";
 import SideBar from "../../component/Sidebar/Sidebar";
@@ -13,9 +13,10 @@ import {
   BsFillPencilFill,
   BsTrashFill,
 } from "react-icons/bs";
+import Modal from "./Modal";
 
 const Tugas = () => {
-  
+  const [openModal, setOpenModal] = useState(false);
   const HandleDelete = () =>{
     Swal.fire({
       title: 'Are you sure?',
@@ -38,6 +39,7 @@ const Tugas = () => {
 
   return (
     <div>
+      <Modal open={openModal} onClose={() => setOpenModal(false)} />
       <SideBar>
         <div className="container-fluid">
           <div className="row heading">
@@ -88,7 +90,7 @@ const Tugas = () => {
                   <td>{data.waktu}</td>
                   <td>
                     <Stack direction="horizontal" gap={3}>
-                      <Button size="sm" variant="success">
+                      <Button size="sm" variant="success" onClick={() => setOpenModal(true)}>
                         <BsFillPencilFill /> Edit
                       </Button>
                       <Button size="sm" variant="danger" onClick={HandleDelete}>
