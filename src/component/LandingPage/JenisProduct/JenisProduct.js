@@ -1,4 +1,4 @@
-import { Col, Row, Stack } from "react-bootstrap";
+import { Row, Stack } from "react-bootstrap";
 import "./JenisProduct.css";
 
 function JenisProduct() {

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Table, Container, Row, Col, Form, Button, Stack } from "react-bootstrap";
 import Profile from "../../assets/img/Profile.png";
 import SideBar from "../../component/Sidebar/Sidebar";
@@ -7,13 +7,18 @@ import Footer from "../../component/Footer/Footer";
 import {DataKursus} from "../../data/Data";
 import Swal from 'sweetalert2'
 import {
-  BsSearch,
+  
   BsPlusLg,
   BsFillPencilFill,
   BsTrashFill,
 } from "react-icons/bs";
+import EditModal from "./EditModal"
+import TambahModal from "./TambahModal";
 
 const Kursus = () => {
+
+  const [openEditModal, setOpenEditModal] = useState(false);
+  const [openTambahModal, setOpenTambahModal] = useState(false);
 
   const HandleDelete = () =>{
     Swal.fire({
@@ -37,6 +42,13 @@ const Kursus = () => {
 
   return (
     <div>
+      <EditModal  
+      open={openEditModal} 
+      onClose={() => setOpenEditModal(false)} />
+      <TambahModal 
+      open={openTambahModal} 
+      onClose={() => setOpenTambahModal(false)}/>
+
       <SideBar>
         <div className="container-fluid">
           <div className="row heading">
@@ -72,7 +84,7 @@ const Kursus = () => {
                   />
                 </Col>
                 <Col className="btnTambah">
-                  <Button size="sm">
+                  <Button size="sm" onClick={() => setOpenTambahModal(true)}>
                     <BsPlusLg /> Tambah Kursus
                   </Button>{" "}
                 </Col>
@@ -105,7 +117,7 @@ const Kursus = () => {
                   <td>Rp. {data.harga}</td>
                   <td>
                     <Stack direction="horizontal" gap={3}>
-                      <Button size="sm" variant="success">
+                      <Button size="sm" variant="success" onClick={() => setOpenEditModal(true)} >
                         <BsFillPencilFill /> Edit
                       </Button>
                       <Button size="sm" variant="danger" onClick={HandleDelete}>
