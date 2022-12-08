@@ -37,7 +37,8 @@ function App() {
         password: users.password,
       })
       .then((response) => {
-        response.data.success && navigate("/dashboard");
+        console.log(response);
+        response.status === 200 && navigate("/dashboard");
         Swal.fire({
           toast: true,
           icon: "success",
@@ -69,23 +70,42 @@ function App() {
         //   navigate("/login");
         // }
       })
-      .catch(() => {
-        Swal.fire({
-          toast: true,
-          icon: "error",
-          title: "Check your username and password",
-          animation: false,
-          background: "#222834",
-          color: "#DE1508",
-          position: "bottom-end",
-          showConfirmButton: false,
-          timer: 4000,
-          timerProgressBar: true,
-          didOpen: (toast) => {
-            toast.addEventListener("mouseenter", Swal.stopTimer);
-            toast.addEventListener("mouseleave", Swal.resumeTimer);
-          },
-        });
+      .catch((response) => {
+        if (response.status === 401) {
+          Swal.fire({
+            toast: true,
+            icon: "error",
+            title: "Something went wrong, please try again later",
+            animation: false,
+            background: "#222834",
+            color: "#DE1508",
+            position: "bottom-end",
+            showConfirmButton: false,
+            timer: 4000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+              toast.addEventListener("mouseenter", Swal.stopTimer);
+              toast.addEventListener("mouseleave", Swal.resumeTimer);
+            },
+          });
+        } else {
+          Swal.fire({
+            toast: true,
+            icon: "error",
+            title: "Check your username and password",
+            animation: false,
+            background: "#222834",
+            color: "#DE1508",
+            position: "bottom-end",
+            showConfirmButton: false,
+            timer: 4000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+              toast.addEventListener("mouseenter", Swal.stopTimer);
+              toast.addEventListener("mouseleave", Swal.resumeTimer);
+            },
+          });
+        }
       });
 
     // .then((response) => {
