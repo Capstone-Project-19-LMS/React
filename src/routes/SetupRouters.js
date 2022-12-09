@@ -17,7 +17,7 @@ const SetupRouters = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route element={<HasSignInRoute />}>
+        {/* <Route element={<HasSignInRoute />}>
           <Route path="/" element={<LandingPage />} />
           <Route path="/login" element={<Login />} />
           <Route path="/dashboard" element={<Dashboard />} />
@@ -37,8 +37,8 @@ const SetupRouters = () => {
         <Route
           path="*"
           element={<NotFoundPage code="404" title="Ooopss Page Not Found" />}
-        />
-        {/* <Route path="/" element={<LandingPage />} />
+        /> */}
+        <Route path="/" element={<LandingPage />} />
         <Route path="*" element={<NotFoundPage />} />
         <Route path="/login" element={<Login />} />
         <Route path="/dashboard" element={<Dashboard />} />
@@ -47,7 +47,7 @@ const SetupRouters = () => {
         <Route path="/kursus" element={<Kursus />} />
         <Route path="/tugas" element={<Tugas />} />
         <Route path="/review" element={<Review />} />
-        <Route path="/test" element={<Tes />} /> */}
+        <Route path="/test" element={<Tes />} />
       </Routes>
     </BrowserRouter>
   );

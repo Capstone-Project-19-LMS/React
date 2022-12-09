@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { Table, Container, Row, Col, Form, Button, Stack } from "react-bootstrap";
 import Profile from "../../assets/img/Profile.png";
 import SideBar from "../../component/Sidebar/Sidebar";
 import "./kursus.css";
 import Footer from "../../component/Footer/Footer";
-import {DataKursus} from "../../data/Data";
+// import {DataKursus} from "../../data/Data";
 import Swal from 'sweetalert2'
 import {
   
@@ -14,8 +15,15 @@ import {
 } from "react-icons/bs";
 import EditModal from "./EditModal"
 import TambahModal from "./TambahModal";
+import { courseSelectors, getCourse, deletes } from "../../redux/courseSlice";
 
 const Kursus = () => {
+  const dispatch = useDispatch();
+  const courses = useSelector(courseSelectors.selectAll);
+
+  useEffect(() => {
+    dispatch(getCourse());
+  }, [dispatch]);
 
   const [openEditModal, setOpenEditModal] = useState(false);
   const [openTambahModal, setOpenTambahModal] = useState(false);
@@ -106,21 +114,21 @@ const Kursus = () => {
 
               <tbody>
 
-              {DataKursus.map((data, index) =>
+              {courses.map((course, index) =>
               
               
                 <tr>
                   <td>{index + 1}</td>
-                  <td>{data.nama}</td>
-                  <td>{data.kapasitas} mantee</td>
-                  <td>{data.kategori}</td>
-                  <td>Rp. {data.harga}</td>
+                  <td>{course.kelas}</td>
+                  <td>{course.kapasitas} mantee</td>
+                  <td>{course.kategori}</td>
+                  <td>Rp. {course.harga}</td>
                   <td>
                     <Stack direction="horizontal" gap={3}>
                       <Button size="sm" variant="success" onClick={() => setOpenEditModal(true)} >
                         <BsFillPencilFill /> Edit
                       </Button>
-                      <Button size="sm" variant="danger" onClick={HandleDelete}>
+                      <Button size="sm" variant="danger" onClick={() => dispatch(deletes(course.id))}>
                         <BsTrashFill /> Hapus
                       </Button>
                     </Stack>

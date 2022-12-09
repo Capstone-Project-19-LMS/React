@@ -1,14 +1,42 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { useNavigate, useParams } from "react-router-dom";
+import { courseSelectors, getCourse, update } from "../../redux/courseSlice";
 import { BsXCircleFill } from "react-icons/bs";
 import "../modal.css";
 import { Form } from "react-bootstrap";
 import Swal from 'sweetalert2'
 
 const Modal = ({ open, onClose }) => {
-  
+  const [kelas, setKelas] = useState('');
+  const [kapasitas, setKapasitas] = useState('');
+  const [kategori, setKategori] = useState('');
+  const [harga, setHarga] = useState('');
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const {id} = useParams();
+
+  const course = useSelector((state) => courseSelectors.selectById(state, id));
+
+  useEffect(() => {
+    dispatch(getCourse());
+  }, [dispatch]);
+
+  useEffect(() => {
+    if (course) {
+      setKelas(course.kelas);
+      setKapasitas(course.kapasitas);
+      setKategori(course.kategori);
+      setHarga(course.harga);
+    }
+  }, [course]);
+
+
   if (!open) return null;
 
-  const HandleSimpan = () =>{
+  const HandleSimpan = async (e) =>{
+    e.preventDefault();
+    await dispatch(update({id, kelas, kapasitas, kategori, harga}));
     Swal.fire({
       title: 'Simpan Perubahan?',
       
@@ -46,7 +74,7 @@ const Modal = ({ open, onClose }) => {
       }
     })
 
-
+    navigate('/kursus')
     
   };
   
@@ -67,11 +95,11 @@ const Modal = ({ open, onClose }) => {
             <Form>
               <Form.Group className="mb-3">
                 <Form.Label>Nama Kursus</Form.Label>
-                <Form.Control type="text" placeholder="Become Profesional UI UX" />
+                <Form.Control type="text" value={kelas} placeholder="Become Profesional UI UX" onChange={(e) => setKelas(e.target.value)} />
               </Form.Group>
               <Form.Group className="mb-3">
                 <Form.Label>Kapasitas</Form.Label>
-                <Form.Control type="text" placeholder="20" />
+                <Form.Control type="text" value={kapasitas} placeholder="20" onChange={(e) => setKapasitas(e.target.value)} />
               </Form.Group>
             
               <Form.Group className="mb-3">
@@ -79,6 +107,8 @@ const Modal = ({ open, onClose }) => {
                 <Form.Control
                   type="text"
                   placeholder="Design"
+                  value={kategori}
+                  onChange={(e) => setKategori(e.target.value)}
                 />
               </Form.Group>
               <Form.Group className="mb-3">
@@ -86,13 +116,15 @@ const Modal = ({ open, onClose }) => {
                 <Form.Control
                   type="text"
                   placeholder=""
+                  value={harga}
+                  onChange={(e) => setHarga(e.target.value)}
                 />
               </Form.Group>
             </Form>
 
           </div>
           <div className="btnContainer">
-            <button className="btnPrimary" onClick={HandleSimpan}>
+            <button type="submit" className="btnPrimary" onClick={HandleSimpan}>
               <span className="bold">Simpan</span>
             </button>
             <button className="btnOutline" onClick={onClose}>
