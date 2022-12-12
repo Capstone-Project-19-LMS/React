@@ -55,15 +55,17 @@ function App() {
             toast.addEventListener("mouseleave", Swal.resumeTimer);
           },
         });
-        // setUserSession(
-        //   response.data.data.token,
-        //   response.data.data.name,
-        //   response.data.data.isAdmin,
-        //   response.data.data.id
-        // );
-        // console.log(response.data.data.name);
-        // dispatch(USER_NAME(response.data.data.name));
-        // dispatch(USER_ID(response.data.data.id));
+        console.log(response.data.user.token);
+        localStorage.setItem("token", response.data.user.token);
+        setUserSession(
+          response.data.user.token,
+          response.data.user.name,
+          response.data.user.isAdmin,
+          response.data.user.id
+        );
+        console.log(response.data.user.name);
+        dispatch(USER_NAME(response.data.user.name));
+        dispatch(USER_ID(response.data.user.id));
         // if (getIsAdmin() === "true") {
         //   navigate("/dashboard");
         // } else {
