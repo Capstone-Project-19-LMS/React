@@ -1,50 +1,54 @@
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import { courseSelectors, getCourse, update } from "../../redux/courseSlice";
+import { courseSelectors, update } from "../../redux/courseSlice";
+import {
+  getCourses,
+  getCoursesById,
+  updateCourses,
+} from "../../redux/coursesSlice";
 import { BsXCircleFill } from "react-icons/bs";
 import "../modal.css";
 import { Form } from "react-bootstrap";
-import Swal from 'sweetalert2'
+import Swal from "sweetalert2";
 
 const Modal = ({ open, onClose }) => {
-  const [kelas, setKelas] = useState('');
-  const [kapasitas, setKapasitas] = useState('');
-  const [kategori, setKategori] = useState('');
-  const [harga, setHarga] = useState('');
+  const [kelas, setKelas] = useState("");
+  const [kapasitas, setKapasitas] = useState("");
+  const [kategori, setKategori] = useState("");
+  const [harga, setHarga] = useState("");
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const {id} = useParams();
+  const { id } = useParams();
 
-  const course = useSelector((state) => courseSelectors.selectById(state, id));
+  // const courses = useSelector((state) => courseSelectors.selectById(state, id));
 
   useEffect(() => {
-    dispatch(getCourse());
+    dispatch(getCoursesById());
   }, [dispatch]);
 
-  useEffect(() => {
-    if (course) {
-      setKelas(course.kelas);
-      setKapasitas(course.kapasitas);
-      setKategori(course.kategori);
-      setHarga(course.harga);
-    }
-  }, [course]);
-
+  // useEffect(() => {
+  //   if (course) {
+  //     setKelas(course.kelas);
+  //     setKapasitas(course.kapasitas);
+  //     setKategori(course.kategori);
+  //     setHarga(course.harga);
+  //   }
+  // }, [course]);
 
   if (!open) return null;
 
-  const HandleSimpan = async (e) =>{
+  const HandleSimpan = async (e) => {
     e.preventDefault();
-    await dispatch(update({id, kelas, kapasitas, kategori, harga}));
+    await dispatch(update({ id, kelas, kapasitas, kategori, harga }));
     Swal.fire({
-      title: 'Simpan Perubahan?',
-      
-      icon: 'question',
+      title: "Simpan Perubahan?",
+
+      icon: "question",
       showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes'
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes",
     }).then((result) => {
       if (result.isConfirmed) {
         let timerInterval;
@@ -62,7 +66,6 @@ const Modal = ({ open, onClose }) => {
           },
           willClose: () => {
             clearInterval(timerInterval);
-    
           },
         }).then((result) => {
           /* Read more about handling dismissals below */
@@ -72,12 +75,11 @@ const Modal = ({ open, onClose }) => {
           }
         });
       }
-    })
+    });
 
-    navigate('/kursus')
-    
+    navigate("/kursus");
   };
-  
+
   return (
     <div onClick={onClose} className="overlay">
       <div
@@ -95,13 +97,23 @@ const Modal = ({ open, onClose }) => {
             <Form>
               <Form.Group className="mb-3">
                 <Form.Label>Nama Kursus</Form.Label>
-                <Form.Control type="text" value={kelas} placeholder="Become Profesional UI UX" onChange={(e) => setKelas(e.target.value)} />
+                <Form.Control
+                  type="text"
+                  value={kelas}
+                  placeholder="Become Profesional UI UX"
+                  onChange={(e) => setKelas(e.target.value)}
+                />
               </Form.Group>
               <Form.Group className="mb-3">
                 <Form.Label>Kapasitas</Form.Label>
-                <Form.Control type="text" value={kapasitas} placeholder="20" onChange={(e) => setKapasitas(e.target.value)} />
+                <Form.Control
+                  type="text"
+                  value={kapasitas}
+                  placeholder="20"
+                  onChange={(e) => setKapasitas(e.target.value)}
+                />
               </Form.Group>
-            
+
               <Form.Group className="mb-3">
                 <Form.Label>Kategori</Form.Label>
                 <Form.Control
@@ -121,7 +133,6 @@ const Modal = ({ open, onClose }) => {
                 />
               </Form.Group>
             </Form>
-
           </div>
           <div className="btnContainer">
             <button type="submit" className="btnPrimary" onClick={HandleSimpan}>

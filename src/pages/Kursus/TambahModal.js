@@ -1,35 +1,44 @@
-import React, {useState} from "react";
+import React, { useEffect, useState } from "react";
 import { BsXCircleFill } from "react-icons/bs";
 import "../modal.css";
 import { Form } from "react-bootstrap";
-import Swal from 'sweetalert2'
-import { useDispatch } from "react-redux";
+import Swal from "sweetalert2";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { create } from "../../redux/courseSlice";
+import { createCourses } from "../../redux/coursesSlice";
+import { getCategory } from "../../redux/categorySlice";
 
-const TambahModal = ({ open, onClose }) => {
-  const [kelas, setKelas] = useState('');
-  const [kapasitas, setKapasitas] = useState('');
-  const [kategori, setKategori] = useState('');
-  const [harga, setHarga] = useState('');
+const TambahModal = ({ open, onClose, callback }) => {
+  const [name, setName] = useState("");
+  const [category_id, setcategoryName] = useState("");
+  const [description, setDescription] = useState("");
+  const [capacity, setCapacity] = useState(0);
+  const [price, setPrice] = useState(0);
+  const category = useSelector((state) => state.category);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  
+
+  useEffect(() => {
+    dispatch(getCategory());
+  }, [dispatch]);
+
   if (!open) return null;
 
-  const HandleSimpan = async (e) =>{
+  const HandleSimpan = async (e) => {
     e.preventDefault();
-    await dispatch(create({kelas, kapasitas, kategori, harga}));
     Swal.fire({
-      title: 'Simpan Perubahan?',
-      
-      icon: 'question',
+      title: "Simpan Perubahan?",
+      icon: "question",
       showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes'
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes",
     }).then((result) => {
       if (result.isConfirmed) {
+        dispatch(
+          createCourses({ name, capacity, price, category_id, description })
+        );
         let timerInterval;
         Swal.fire({
           title: "Data Berhasil Disimpan !",
@@ -45,7 +54,6 @@ const TambahModal = ({ open, onClose }) => {
           },
           willClose: () => {
             clearInterval(timerInterval);
-    
           },
         }).then((result) => {
           /* Read more about handling dismissals below */
@@ -55,12 +63,11 @@ const TambahModal = ({ open, onClose }) => {
           }
         });
       }
-    })
+    });
 
-    navigate('/kursus')
-    
+    navigate("/kursus");
   };
-  
+
   return (
     <div onClick={onClose} className="overlay">
       <div
@@ -78,37 +85,69 @@ const TambahModal = ({ open, onClose }) => {
             <Form>
               <Form.Group className="mb-3">
                 <Form.Label>Nama Kursus</Form.Label>
-                <Form.Control type="text" value={kelas} placeholder="Become Profesional UI UX" onChange={(e) => setKelas(e.target.value)} />
+                <Form.Control
+                  type="text"
+                  value={name}
+                  placeholder="Become Profesional UI UX"
+                  onChange={(e) => setName(e.target.value)}
+                />
+              </Form.Group>
+              <Form.Group className="mb-3">
+                <Form.Label>Des Kursus</Form.Label>
+                <Form.Control
+                  type="text"
+                  value={description}
+                  placeholder="Become Profesional UI UX"
+                  onChange={(e) => setDescription(e.target.value)}
+                />
               </Form.Group>
               <Form.Group className="mb-3">
                 <Form.Label>Kapasitas</Form.Label>
-                <Form.Control type="text" value={kapasitas} placeholder="20" onChange={(e) => setKapasitas(e.target.value)} />
+                <Form.Control
+                  type="number"
+                  value={capacity}
+                  placeholder="20"
+                  onChange={(e) => setCapacity(capacity + 1)}
+                />
               </Form.Group>
-            
               <Form.Group className="mb-3">
                 <Form.Label>Kategori</Form.Label>
-                <Form.Control
+                {/* <Form.Control
                   type="text"
                   placeholder="Design"
                   value={kategori}
                   onChange={(e) => setKategori(e.target.value)}
-                />
+                /> */}
+                <Form.Select
+                  // onChange={({ target: { value } }) => callback(value)}
+                  onChange={(e) => setcategoryName(e.target.value)}
+                >
+                  <option value="">Choose a Category</option>
+                  {category.data.categories?.map((categories) => (
+                    <option
+                      value={categories.id}
+                      key={categories.id}
+                      // onChange={(e) => setcategoryName(e.target.value)}
+                    >
+                      {categories.name}
+                    </option>
+                  ))}
+                </Form.Select>
               </Form.Group>
               <Form.Group className="mb-3">
                 <Form.Label>Harga</Form.Label>
                 <Form.Control
-                  type="text"
+                  type="number"
                   placeholder=""
-                  value={harga}
-                  onChange={(e) => setHarga(e.target.value)}
+                  value={price}
+                  onChange={(e) => setPrice(price + 1000)}
                 />
               </Form.Group>
             </Form>
-
           </div>
           <div className="btnContainer">
             <button type="submit" className="btnPrimary" onClick={HandleSimpan}>
-            {/* <button className="btnPrimary" onClick={HandleSimpan}> */}
+              {/* <button className="btnPrimary" onClick={HandleSimpan}> */}
               <span className="bold">Simpan</span>
             </button>
             <button className="btnOutline" onClick={onClose}>

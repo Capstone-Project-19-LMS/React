@@ -1,61 +1,74 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Table, Container, Row, Col, Form, Button, Stack } from "react-bootstrap";
+import {
+  Table,
+  Container,
+  Row,
+  Col,
+  Form,
+  Button,
+  Stack,
+} from "react-bootstrap";
 import Profile from "../../assets/img/Profile.png";
 import SideBar from "../../component/Sidebar/Sidebar";
 import "./kursus.css";
 import Footer from "../../component/Footer/Footer";
 // import {DataKursus} from "../../data/Data";
-import Swal from 'sweetalert2'
-import {
-  
-  BsPlusLg,
-  BsFillPencilFill,
-  BsTrashFill,
-} from "react-icons/bs";
-import EditModal from "./EditModal"
+import Swal from "sweetalert2";
+import { BsPlusLg, BsFillPencilFill, BsTrashFill } from "react-icons/bs";
+import EditModal from "./EditModal";
 import TambahModal from "./TambahModal";
-import { courseSelectors, getCourse, deletes } from "../../redux/courseSlice";
+// import { fetchProducts } from "../../redux/courseSlice";
+import { getCourses, deleteCourses } from "../../redux/coursesSlice";
+import axiosInstance from "../../networks/api";
+// import { courseSelectors, getCourse, deletes } from "../../redux/courseSlice";
 
 const Kursus = () => {
+  const course = useSelector((state) => state.courses);
   const dispatch = useDispatch();
-  const courses = useSelector(courseSelectors.selectAll);
+  const [getId, setGetId] = useState();
+  // const handleGetID = (id) => {
+  //   dispatch(getCoursesById(id));
+  // };
+  // const products = useSelector((state) => state.products);
+
+  // useEffect(() => {
+  //   dispatch(fetchProducts());
+  // }, [dispatch]);
+  // const courses = useSelector(courseSelectors.selectAll);
+  // const courses = useSelector((state) => state.products);
 
   useEffect(() => {
-    dispatch(getCourse());
+    dispatch(getCourses());
   }, [dispatch]);
 
   const [openEditModal, setOpenEditModal] = useState(false);
   const [openTambahModal, setOpenTambahModal] = useState(false);
 
-  const HandleDelete = () =>{
+  const HandleDelete = (id) => {
     Swal.fire({
-      title: 'Are you sure?',
+      title: "Are you sure?",
       text: "You won't be able to revert this!",
-      icon: 'warning',
+      icon: "warning",
       showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, delete it!'
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        Swal.fire(
-          'Deleted!',
-          'Your file has been deleted.',
-          'success'
-        )
+        Swal.fire("Deleted!", "Your file has been deleted.", "success");
+        dispatch(deleteCourses(id));
       }
-    })
-  }
+    });
+  };
 
   return (
     <div>
-      <EditModal  
-      open={openEditModal} 
-      onClose={() => setOpenEditModal(false)} />
-      <TambahModal 
-      open={openTambahModal} 
-      onClose={() => setOpenTambahModal(false)}/>
+      <EditModal open={openEditModal} onClose={() => setOpenEditModal(false)} />
+      <TambahModal
+        open={openTambahModal}
+        onClose={() => setOpenTambahModal(false)}
+      />
 
       <SideBar>
         <div className="container-fluid">
@@ -113,28 +126,37 @@ const Kursus = () => {
               </thead>
 
               <tbody>
-
-              {courses.map((course, index) =>
-              
-              
-                <tr>
-                  <td>{index + 1}</td>
-                  <td>{course.kelas}</td>
-                  <td>{course.kapasitas} mantee</td>
-                  <td>{course.kategori}</td>
-                  <td>Rp. {course.harga}</td>
-                  <td>
-                    <Stack direction="horizontal" gap={3}>
-                      <Button size="sm" variant="success" onClick={() => setOpenEditModal(true)} >
-                        <BsFillPencilFill /> Edit
-                      </Button>
-                      <Button size="sm" variant="danger" onClick={() => dispatch(deletes(course.id))}>
-                        <BsTrashFill /> Hapus
-                      </Button>
-                    </Stack>
-                  </td>
-                </tr>
-                )}
+                {course.data.courses?.map((course, index) => (
+                  <tr key={course.id}>
+                    <td>{index + 1}</td>
+                    <td>{course.name}</td>
+                    <td>{course.capacity}</td>
+                    <td>{course.category.name}</td>
+                    <td>{course.price}</td>
+                    <td>
+                      <Stack direction="horizontal" gap={3}>
+                        <Button
+                          size="sm"
+                          variant="success"
+                          setGetId={setGetId}
+                          getId={getId}
+                          onClick={() => setOpenEditModal(true)}
+                          // onClick={handleGetID(course.id)}
+                        >
+                          <BsFillPencilFill /> Edit
+                        </Button>
+                        <Button
+                          size="sm"
+                          variant="danger"
+                          // onClick={() => dispatch(deleteCourses(course.id))}
+                          onClick={() => HandleDelete(course.id)}
+                        >
+                          <BsTrashFill /> Hapus
+                        </Button>
+                      </Stack>
+                    </td>
+                  </tr>
+                ))}
               </tbody>
             </Table>
           </div>
