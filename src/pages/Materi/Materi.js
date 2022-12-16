@@ -1,12 +1,19 @@
-import React, { useState }  from "react";
-import { Table, Container, Row, Col, Form, Button, Stack } from "react-bootstrap";
+import React, { useEffect, useState } from "react";
+import {
+  Table,
+  Container,
+  Row,
+  Col,
+  Form,
+  Button,
+  Stack,
+} from "react-bootstrap";
 import Profile from "../../assets/img/Profile.png";
 import SideBar from "../../component/Sidebar/Sidebar";
 import "./materi.css";
 import Footer from "../../component/Footer/Footer";
-import {DataMateri} from "../../data/Data";
-import Swal from 'sweetalert2'
-
+import { DataMateri } from "../../data/Data";
+import Swal from "sweetalert2";
 import {
   BsSearch,
   BsPlusLg,
@@ -15,35 +22,52 @@ import {
 } from "react-icons/bs";
 import EditModal from "./EditModal";
 import TambahModal from "./TambahModal";
+import {
+  deleteMateri,
+  getMateri,
+  getMediaMateri,
+} from "../../redux/materiSlice";
+import { useDispatch, useSelector } from "react-redux";
 
 const Materi = () => {
-  
+  const materi = useSelector((state) => state.materi);
+  // const mediaMateri = useSelector((state) => state.mediaMateri);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getMateri());
+  }, [dispatch]);
+
+  // useEffect(() => {
+  //   dispatch(getMediaMateri());
+  // }, [dispatch]);
+
   const [openEditModal, setOpenEditModal] = useState(false);
   const [openTambahModal, setOpenTambahModal] = useState(false);
-  const HandleDelete = () =>{
+  const HandleDelete = (id) => {
     Swal.fire({
-      title: 'Are you sure?',
+      title: "Are you sure?",
       text: "You won't be able to revert this!",
-      icon: 'warning',
+      icon: "warning",
       showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, delete it!'
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        Swal.fire(
-          'Deleted!',
-          'Your file has been deleted.',
-          'success'
-        )
+        Swal.fire("Deleted!", "Your file has been deleted.", "success");
+        dispatch(deleteMateri(id));
       }
-    })
-  }
+    });
+  };
 
   return (
     <div>
       <EditModal open={openEditModal} onClose={() => setOpenEditModal(false)} />
-      <TambahModal open={openTambahModal} onClose={() => setOpenTambahModal(false)} />
+      <TambahModal
+        open={openTambahModal}
+        onClose={() => setOpenTambahModal(false)}
+      />
       <SideBar>
         <div className="container-fluid">
           <div className="row heading">
@@ -99,27 +123,32 @@ const Materi = () => {
               </thead>
 
               <tbody>
-
-              {DataMateri.map((data, index) =>
-              
-              
-                <tr>
-                  <td>{index + 1}</td>
-                  <td>{data.materi}</td>
-                  <td>{data.file}</td>
-                  <td>{data.kelas}</td>
-                  <td>
-                    <Stack direction="horizontal" gap={3}>
-                      <Button size="sm" variant="success" onClick={() => setOpenEditModal(true)}>
-                        <BsFillPencilFill /> Edit
-                      </Button>
-                      <Button size="sm" variant="danger" onClick={HandleDelete}>
-                        <BsTrashFill /> Hapus
-                      </Button>
-                    </Stack>
-                  </td>
-                </tr>
-                )}
+                {materi.data.modules?.map((modules, index) => (
+                  <tr>
+                    <td>{index + 1}</td>
+                    <td>{modules.name}</td>
+                    <td>{modules.content}</td>
+                    <td>{modules.course_id}</td>
+                    <td>
+                      <Stack direction="horizontal" gap={3}>
+                        <Button
+                          size="sm"
+                          variant="success"
+                          onClick={() => setOpenEditModal(true)}
+                        >
+                          <BsFillPencilFill /> Edit
+                        </Button>
+                        <Button
+                          size="sm"
+                          variant="danger"
+                          onClick={() => HandleDelete(modules.id)}
+                        >
+                          <BsTrashFill /> Hapus
+                        </Button>
+                      </Stack>
+                    </td>
+                  </tr>
+                ))}
               </tbody>
             </Table>
           </div>
