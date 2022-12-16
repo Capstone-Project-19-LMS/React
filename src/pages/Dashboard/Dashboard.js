@@ -103,122 +103,102 @@ const Dashboard = () => {
               </div>
             </div>
             <div className="row">
-              <p className="text-manage my-2">Manage Kursus</p>
-              <Table striped hover>
-                <thead>
-                  <tr>
-                    <th>ID</th>
-                    <th>Nama Kelas</th>
-                    <th>Kapasitas</th>
-                    <th>Kategori</th>
-                    <th>Harga</th>
-                    <th>Aksi</th>
-                  </tr>
-                </thead>
+              <div className="col-md-8">
+                <div className="row">
+                  <p className="text-manage my-2">Manage Kursus</p>
+                  <Table striped hover>
+                    <thead>
+                      <tr>
+                        <th>ID</th>
+                        <th>Nama Kelas</th>
+                        <th>Kapasitas</th>
+                        <th>Kategori</th>
+                        <th>Harga</th>
+                      </tr>
+                    </thead>
 
-                <tbody>
-                  {DataKursus.map((data, index) => (
-                    <tr>
-                      <td>{index + 1}</td>
-                      <td>{data.nama}</td>
-                      <td>{data.kapasitas} mantee</td>
-                      <td>{data.kategori}</td>
-                      <td>Rp. {data.harga}</td>
-                      <td>
-                        <Stack direction="horizontal" gap={3}>
-                          <Button size="sm" variant="success">
-                            <BsFillPencilFill /> Edit
-                          </Button>
-                          <Button
-                            size="sm"
-                            variant="danger"
-                            onClick={HandleDelete}
-                          >
-                            <BsTrashFill /> Hapus
-                          </Button>
-                        </Stack>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </Table>
-            </div>
-            <div className="row">
-              <p className="text-manage my-2">Manage Materi</p>
-              <Table striped hover>
-              <thead>
-                <tr>
-                  <th>ID</th>
-                  <th>Materi</th>
-                  <th>File</th>
-                  <th>Kelas</th>
-                  <th>Aksi</th>
-                </tr>
-              </thead>
+                    <tbody>
+                      {DataKursus.map((data, index) => (
+                        <tr>
+                          <td>{index + 1}</td>
+                          <td>{data.nama}</td>
+                          <td>{data.kapasitas} mantee</td>
+                          <td>{data.kategori}</td>
+                          <td>Rp. {data.harga}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </Table>
+                </div>
+                <div className="row">
+                  <p className="text-manage my-2">Manage Materi</p>
+                  <Table striped hover>
+                    <thead>
+                      <tr>
+                        <th>ID</th>
+                        <th>Materi</th>
+                        <th>File</th>
+                        <th>Kelas</th>
+                      </tr>
+                    </thead>
 
-              <tbody>
-
-              {DataMateri.map((data, index) =>
-              
-              
-                <tr>
-                  <td>{index + 1}</td>
-                  <td>{data.materi}</td>
-                  <td>{data.file}</td>
-                  <td>{data.kelas}</td>
-                  <td>
-                    <Stack direction="horizontal" gap={3}>
-                      <Button size="sm" variant="success">
-                        <BsFillPencilFill /> Edit
-                      </Button>
-                      <Button size="sm" variant="danger" onClick={HandleDelete}>
-                        <BsTrashFill /> Hapus
-                      </Button>
-                    </Stack>
-                  </td>
-                </tr>
-                )}
-              </tbody>
-            </Table>
-            </div>
-            <div className="row">
-              <p className="text-manage my-2">Manage Mentee</p>
-              <Table striped hover>
-              <thead>
-                <tr>
-                  <th>ID</th>
-                  <th>Nama Mantee</th>
-                  <th>Status</th>
-                  <th>Kelas</th>
-                  <th>Aksi</th>
-                </tr>
-              </thead>
-
-              <tbody>
-
-              {DataMantee.map((data, index) =>
-              
-              
-                <tr>
-                  <td>{index + 1}</td>
-                  <td>{data.nama}</td>
-                  <td>{data.status}</td>
-          
-                  <td>{data.kelas}</td>
-                  <td>
-                    <Stack direction="horizontal" gap={3}>
-                      <Button size="sm" variant="success">
-                        <BsFillPencilFill /> Edit
-                      </Button>
-                      <Button size="sm" variant="danger" onClick={HandleDelete}>
-                        <BsTrashFill /> Hapus
-                      </Button>
-                    </Stack>
-                  </td>
-                </tr>
-                )}
-              </tbody>
-            </Table>
+                    <tbody>
+                      {DataMateri.map((data, index) => (
+                        <tr>
+                          <td>{index + 1}</td>
+                          <td>{data.materi}</td>
+                          <td>{data.file}</td>
+                          <td>{data.kelas}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </Table>
+                </div>
+                <div className="row">
+                  <p className="text-manage my-2">Manage Mentee</p>
+                  <Table striped hover>
+                    <thead>
+                      <tr>
+                        <th>ID</th>
+                        <th>Nama Mantee</th>
+                        <th>Status</th>
+                        <th>Kelas</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {DataMantee.map((data, index) => (
+                        <tr>
+                          <td>{index + 1}</td>
+                          <td>{data.nama}</td>
+                          <td>{data.status}</td>
+                          <td>{data.kelas}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </Table>
+                </div>
+              </div>
+              <div className="col-md-4">
+                <div class="card">
+                  <div class="card-header"><strong>Informasi Aplikasi</strong></div>
+                  <div class="card-body">
+                    <h5 class="card-title">Selamat Datang di GenCer</h5>
+                    <p class="card-text">
+                    Kami berharap aplikasi ini dapat membantu instruktur dalam mengatur kelas nya.
+                    </p>
+                    
+                    <p class="card-text">
+                    Learning Management System ini dikembangkan oleh <strong>Capstone 19</strong> yang bermitra dengan <strong>Alterra Academy</strong>
+                    </p>
+                    <p class="card-text">
+                    Salam “ Generasi Cermat , Generasi Cerdas
+                    </p>
+                    <p class="card-text">
+                    Dari <strong>CP 19 untuk Generasi Cerdas Indonesia</strong>
+                    </p>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
