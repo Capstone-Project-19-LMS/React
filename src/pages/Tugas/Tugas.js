@@ -5,7 +5,9 @@ import SideBar from "../../component/Sidebar/Sidebar";
 import "./tugas.css";
 import Footer from "../../component/Footer/Footer";
 import {DataTugas} from "../../data/Data";
-import Swal from 'sweetalert2'
+import Swal from 'sweetalert2';
+import { deleteTugas } from "../../redux/tugasSlice";
+import { useSelector, useDispatch } from "react-redux";
 
 import {
   BsSearch,
@@ -16,8 +18,10 @@ import {
 import Modal from "./Modal";
 
 const Tugas = () => {
+  const dispatch = useDispatch();
+  const tugasList = useSelector((state) => state.tugass.value);
   const [openModal, setOpenModal] = useState(false);
-  const HandleDelete = () =>{
+  const HandleDelete = (id) =>{
     Swal.fire({
       title: 'Are you sure?',
       text: "You won't be able to revert this!",
@@ -32,7 +36,8 @@ const Tugas = () => {
           'Deleted!',
           'Your file has been deleted.',
           'success'
-        )
+        );
+        dispatch(deleteTugas(id));
       }
     })
   }
@@ -80,22 +85,22 @@ const Tugas = () => {
 
               <tbody>
 
-              {DataTugas.map((data, index) =>
+              {tugasList.map((tugas, index) =>
               
               
                 <tr>
                   <td>{index + 1}</td>
-                  <td>{data.mantee}</td>
-                  <td>{data.file}</td>
-                  <td>{data.kelas}</td>
-                  <td>{data.waktu}</td>
-                  <td>{data.nilai}</td>
+                  <td>{tugas.mantee}</td>
+                  <td>{tugas.file}</td>
+                  <td>{tugas.kelas}</td>
+                  <td>{tugas.waktu}</td>
+                  <td>{tugas.nilai}</td>
                   <td>
                     <Stack direction="horizontal" gap={3}>
                       <Button size="sm" variant="success" onClick={() => setOpenModal(true)}>
                         <BsFillPencilFill /> Edit
                       </Button>
-                      <Button size="sm" variant="danger" onClick={HandleDelete}>
+                      <Button size="sm" variant="danger" onClick={() => HandleDelete({id: tugas.id})}>
                         <BsTrashFill /> Hapus
                       </Button>
                     </Stack>

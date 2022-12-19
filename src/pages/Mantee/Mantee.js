@@ -14,15 +14,18 @@ import "./mantee.css";
 import Footer from "../../component/Footer/Footer";
 import { DataMantee } from "../../data/Data";
 import Swal from "sweetalert2";
-
+import {deleteMentee} from "../../redux/menteeSlice";
+import { useSelector, useDispatch } from "react-redux";
 import { BsPlusLg, BsFillPencilFill, BsTrashFill } from "react-icons/bs";
 import EditModal from "./EditModal";
 import TambahModal from "./TambahModal";
 
 const Mantee = () => {
+  const dispatch = useDispatch();
+  const menteeList = useSelector((state) => state.mentees.value);
   const [openEditModal, setOpenEditModal] = useState(false);
   const [openTambahModal, setOpenTambahModal] = useState(false);
-  const HandleDelete = () => {
+  const HandleDelete = (id) => {
     Swal.fire({
       title: "Are you sure?",
       text: "You won't be able to revert this!",
@@ -34,6 +37,7 @@ const Mantee = () => {
     }).then((result) => {
       if (result.isConfirmed) {
         Swal.fire("Deleted!", "Your file has been deleted.", "success");
+        dispatch(deleteMentee(id));
       }
     });
   };
@@ -97,12 +101,12 @@ const Mantee = () => {
               </thead>
 
               <tbody>
-                {DataMantee.map((data, index) => (
+                {menteeList.map((mentee, index) => (
                   <tr>
                     <td>{index + 1}</td>
-                    <td>{data.nama}</td>
-                    <td>{data.status}</td>
-                    <td>{data.kelas}</td>
+                    <td>{mentee.nama}</td>
+                    <td>{mentee.status}</td>
+                    <td>{mentee.kelas}</td>
                     <td>
                       <Stack direction="horizontal" gap={3}>
                         <Button
@@ -115,7 +119,10 @@ const Mantee = () => {
                         <Button
                           size="sm"
                           variant="danger"
-                          onClick={HandleDelete}
+                          // onClick={() => {
+                          //   dispatch(deleteMentee({id: mentee.id }));
+                          // }}
+                          onClick={() => HandleDelete({id: mentee.id})}
                         >
                           <BsTrashFill /> Hapus
                         </Button>
