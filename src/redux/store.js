@@ -6,6 +6,8 @@ import categoryReducer from "./coursesSlice";
 import coursesSlice from "./coursesSlice";
 import categorySlice from "./categorySlice";
 import materiSlice from "./materiSlice";
+import menteeSlice from "./menteeSlice";
+import tugasSlice from "./tugasSlice";
 
 // const store = configureStore({
 //   reducer: {
@@ -17,6 +19,8 @@ const reducer = combineReducers({
   courses: coursesSlice,
   category: categorySlice,
   materi: materiSlice,
+  mentees: menteeSlice,
+  tugass: tugasSlice,
 });
 
 const store = configureStore({
