@@ -25,6 +25,7 @@ const Mantee = () => {
   const menteeList = useSelector((state) => state.mentees.value);
   const [openEditModal, setOpenEditModal] = useState(false);
   const [openTambahModal, setOpenTambahModal] = useState(false);
+  const [search, setSearch] = useState("");
   const HandleDelete = (id) => {
     Swal.fire({
       title: "Are you sure?",
@@ -78,6 +79,7 @@ const Mantee = () => {
                     placeholder="Search"
                     aria-label="Username"
                     aria-describedby="basic-addon1"
+                    onChange={(e) => setSearch(e.target.value)}
                   />
                 </Col>
                 <Col className="btnTambah">
@@ -101,7 +103,7 @@ const Mantee = () => {
               </thead>
 
               <tbody>
-                {menteeList.map((mentee, index) => (
+                {menteeList.filter(mentee=>mentee.nama.toLowerCase().includes(search)).map((mentee, index) => (
                   <tr>
                     <td>{index + 1}</td>
                     <td>{mentee.nama}</td>
