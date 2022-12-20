@@ -27,6 +27,7 @@ const Kursus = () => {
   const course = useSelector((state) => state.courses);
   const dispatch = useDispatch();
   const [getId, setGetId] = useState();
+  const [search, setSearch] = useState("");
   // const handleGetID = (id) => {
   //   dispatch(getCoursesById(id));
   // };
@@ -102,6 +103,7 @@ const Kursus = () => {
                     placeholder="Search"
                     aria-label="Username"
                     aria-describedby="basic-addon1"
+                    onChange={(e) => setSearch(e.target.value)}
                   />
                 </Col>
                 <Col className="btnTambah">
@@ -126,7 +128,7 @@ const Kursus = () => {
               </thead>
 
               <tbody>
-                {course.data.courses?.map((course, index) => (
+                {course.data.courses?.filter(course=>course.name.toLowerCase().includes(search)).map((course, index) => (
                   <tr key={course.id}>
                     <td>{index + 1}</td>
                     <td>{course.name}</td>
