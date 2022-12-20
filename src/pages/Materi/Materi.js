@@ -33,6 +33,7 @@ const Materi = () => {
   const materi = useSelector((state) => state.materi);
   // const mediaMateri = useSelector((state) => state.mediaMateri);
   const dispatch = useDispatch();
+  const [search, setSearch] = useState("");
 
   useEffect(() => {
     dispatch(getMateri());
@@ -100,6 +101,7 @@ const Materi = () => {
                     placeholder="Search"
                     aria-label="Username"
                     aria-describedby="basic-addon1"
+                    onChange={(e) => setSearch(e.target.value)}
                   />
                 </Col>
                 <Col className="btnTambah">
@@ -123,7 +125,7 @@ const Materi = () => {
               </thead>
 
               <tbody>
-                {materi.data.modules?.map((modules, index) => (
+                {materi.data.modules?.filter(modules=>modules.name.toLowerCase().includes(search)).map((modules, index) => (
                   <tr>
                     <td>{index + 1}</td>
                     <td>{modules.name}</td>
