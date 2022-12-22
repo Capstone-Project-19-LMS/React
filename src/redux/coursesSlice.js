@@ -65,8 +65,7 @@ const initialState = {
   dataID: [],
   status: "idle",
   loading: false,
-  error: null,
-  deleted: false,
+  error: false,
 };
 
 export const coursesSlice = createSlice({
@@ -108,9 +107,25 @@ export const coursesSlice = createSlice({
         // state.data = state.data.filter((val) => val.id !== id);
         // console.log(state.data);
         // // state.deleted = false;
+      })
+      .addCase(updateCourses.fulfilled, (state, action) => {
+        state.status = "success";
+        const id = action.payload._id;
+        const indexData = state.data.findIndex((value) => value._id === id);
+        const newArr = [...state.data];
+        if (indexData >= 0) {
+          newArr[indexData] = action.payload;
+        }
+        state.data = [...newArr];
+        state.loading = !state.loading;
       });
-    // .addCase(updateCourses.fulfilled, (state) => {
-    //   state.componentStatus = !state.componentStatus;
+    // builder.addCase(updateCourses.fulfilled, (state, { payload }) => {
+    //   state.loading = false;
+    //   state.error = false;
+    //   state.data = state.data.map((val) => {
+    //     if (val.ID === payload.ID) return payload;
+    //     return val;
+    //   });
     // });
   },
 });
