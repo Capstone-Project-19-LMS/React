@@ -213,3 +213,12 @@ export const DataRating = [
     review: "2018/02/01 14:16:00",
   },
 ];
+export const AmountData = [
+  {
+    id: 1,
+    course: "5",
+    mentor: "10",
+    mentee: "5",
+    kategori: "9",
+  },
+];
