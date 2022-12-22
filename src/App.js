@@ -1,11 +1,11 @@
-import SetupRouters from './routes/SetupRouters';
+import SetupRouters from "./routes/SetupRouters";
 
 function App() {
   return (
     <div className="App">
       <div className="App">
-      <SetupRouters/>
-    </div>
+        <SetupRouters />
+      </div>
     </div>
   );
 }

@@ -1,9 +1,13 @@
 import NotFound from "../component/NotFound/NotFound";
+import Sidebar from "../component/Sidebar/Sidebar";
 
 function NotFoundPage() {
-    return (
-        <NotFound/>
-    )
+  return (
+    <>
+      <Sidebar />
+      <NotFound />
+    </>
+  );
 }
 
 export default NotFoundPage;

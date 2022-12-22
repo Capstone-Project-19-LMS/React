@@ -11,9 +11,9 @@
 .text-testimoni {
   font-family: "Nunito";
   font-style: normal;
-  font-weight: 400;
-  font-size: 20px;
-  line-height: 27px;
+  font-weight: 400 !important;
+  font-size: 20px !important;
+  line-height: 27px !important;
 }
 .name-testimoni {
   font-family: "Nunito";

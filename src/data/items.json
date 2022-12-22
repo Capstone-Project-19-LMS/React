@@ -3,18 +3,21 @@
         "id": 1,
         "name": "Become a Flutter Master ",
         "price": "100.000",
+        "rating": "4.3",
         "imgUrl": "../assets/img/product.png"
     },
     {
         "id": 2,
         "name": "React",
         "price": "110.000",
+        "rating": "4.2",
         "imgUrl": "../assets/img/product.png"
     },
     {
         "id": 3,
         "name": "Go",
         "price": "120.000",
+        "rating": "4.1",
         "imgUrl": "/img/blue.jpg"
     }
 ]
