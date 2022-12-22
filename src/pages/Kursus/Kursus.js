@@ -134,7 +134,7 @@ const Kursus = () => {
                     <td>{course.name}</td>
                     <td>{course.capacity}</td>
                     <td>{course.category.name}</td>
-                    <td>{course.price}</td>
+                    <td>Rp. {course.price}</td>
                     <td>
                       <Stack direction="horizontal" gap={3}>
                         <Button
