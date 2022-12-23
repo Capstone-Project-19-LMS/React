@@ -1,5 +1,5 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
-import listReducer from "./instructorSlice";
+import userSlice from "./instructorSlice";
 import userReducer from "./instructorSlice";
 import courseReducer from "./courseSlice";
 import categoryReducer from "./coursesSlice";
@@ -16,6 +16,7 @@ import tugasSlice from "./tugasSlice";
 //   },
 // });
 const reducer = combineReducers({
+  user: userSlice,
   courses: coursesSlice,
   category: categorySlice,
   materi: materiSlice,

@@ -1,12 +1,21 @@
-import React, { useState } from "react";
-import { Table, Container, Row, Col, Form, Button, Stack } from "react-bootstrap";
+import React, { useEffect, useState } from "react";
+import {
+  Table,
+  Container,
+  Row,
+  Col,
+  Form,
+  Button,
+  Stack,
+  Spinner,
+} from "react-bootstrap";
 import Profile from "../../assets/img/Profile.png";
 import SideBar from "../../component/Sidebar/Sidebar";
 import "./tugas.css";
 import Footer from "../../component/Footer/Footer";
-import {DataTugas} from "../../data/Data";
-import Swal from 'sweetalert2';
-import { deleteTugas } from "../../redux/tugasSlice";
+import { DataTugas } from "../../data/Data";
+import Swal from "sweetalert2";
+import { deleteTugas, getTugas } from "../../redux/tugasSlice";
 import { useSelector, useDispatch } from "react-redux";
 
 import {
@@ -16,35 +25,61 @@ import {
   BsTrashFill,
 } from "react-icons/bs";
 import Modal from "./Modal";
+import moment from "moment/moment";
+import { Link } from "react-router-dom";
 
 const Tugas = () => {
   const dispatch = useDispatch();
-  const tugasList = useSelector((state) => state.tugass.value);
+  const tugasList = useSelector((state) => state.tugass);
   const [openModal, setOpenModal] = useState(false);
-  const HandleDelete = (id) =>{
+
+  useEffect(() => {
+    dispatch(getTugas());
+  }, [dispatch]);
+
+  const HandleDelete = (id) => {
     Swal.fire({
-      title: 'Are you sure?',
+      title: "Are you sure?",
       text: "You won't be able to revert this!",
-      icon: 'warning',
+      icon: "warning",
       showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, delete it!'
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        Swal.fire(
-          'Deleted!',
-          'Your file has been deleted.',
-          'success'
-        );
         dispatch(deleteTugas(id));
+        let timerInterval;
+        Swal.fire({
+          title: "Data Berhasil Dihapus !",
+          html: "I will close in <b></b> milliseconds.",
+          timer: 2000,
+          timerProgressBar: true,
+          didOpen: () => {
+            Swal.showLoading();
+            const b = Swal.getHtmlContainer().querySelector("b");
+            timerInterval = setInterval(() => {
+              b.textContent = Swal.getTimerLeft();
+            }, 100);
+          },
+          willClose: () => {
+            clearInterval(timerInterval);
+          },
+        }).then((result) => {
+          /* Read more about handling dismissals below */
+          if (result.dismiss === Swal.DismissReason.timer) {
+            dispatch(getTugas());
+            onclick = { setOpenModal };
+            console.log("I was closed by the timer");
+          }
+        });
       }
-    })
-  }
+    });
+  };
 
   return (
     <div>
-      <Modal open={openModal} onClose={() => setOpenModal(false)} />
+      {/* <Modal open={openModal} onClose={() => setOpenModal(false)} /> */}
       <SideBar>
         <div className="container-fluid">
           <div className="row heading">
@@ -68,7 +103,7 @@ const Tugas = () => {
               </div>
             </div>
           </div>
-          
+
           <div>
             <Table striped hover>
               <thead>
@@ -82,32 +117,48 @@ const Tugas = () => {
                   <th>Aksi</th>
                 </tr>
               </thead>
+              {tugasList.loading ? (
+                <div style={{ textAlign: "center", alignItems: "center" }}>
+                  <Spinner animation="grow" variant="primary" />
+                  <Spinner animation="grow" variant="secondary" />
+                  <Spinner animation="grow" variant="success" />
+                  <Spinner animation="grow" variant="danger" />
+                </div>
+              ) : (
+                <tbody>
+                  {tugasList.data.customer_assignment?.map((tugas, index) => (
+                    <tr>
+                      <td>{index + 1}</td>
+                      <td>{tugas.customer_id}</td>
+                      <td>{tugas.file}</td>
+                      <td>{tugas.assignment_id}</td>
+                      <td>{moment(tugas.created_at).format("lll")}</td>
 
-              <tbody>
-
-              {tugasList.map((tugas, index) =>
-              
-              
-                <tr>
-                  <td>{index + 1}</td>
-                  <td>{tugas.mantee}</td>
-                  <td>{tugas.file}</td>
-                  <td>{tugas.kelas}</td>
-                  <td>{tugas.waktu}</td>
-                  <td>{tugas.nilai}</td>
-                  <td>
-                    <Stack direction="horizontal" gap={3}>
-                      <Button size="sm" variant="success" onClick={() => setOpenModal(true)}>
-                        <BsFillPencilFill /> Edit
-                      </Button>
-                      <Button size="sm" variant="danger" onClick={() => HandleDelete({id: tugas.id})}>
-                        <BsTrashFill /> Hapus
-                      </Button>
-                    </Stack>
-                  </td>
-                </tr>
-                )}
-              </tbody>
+                      <td>{tugas.grade}</td>
+                      <td>
+                        <Stack direction="horizontal" gap={3}>
+                          <Button
+                            size="sm"
+                            variant="success"
+                            as={Link}
+                            to={`/tugas/${tugas.id}`}
+                            onClick={() => setOpenModal(true)}
+                          >
+                            <BsFillPencilFill /> Edit
+                          </Button>
+                          <Button
+                            size="sm"
+                            variant="danger"
+                            onClick={() => HandleDelete(tugas.id)}
+                          >
+                            <BsTrashFill /> Hapus
+                          </Button>
+                        </Stack>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              )}
             </Table>
           </div>
         </div>

@@ -1,46 +1,55 @@
-import React, { useState, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { useNavigate, useParams } from "react-router-dom";
-import { courseSelectors, update } from "../../redux/courseSlice";
-import {
-  getCourses,
-  getCoursesById,
-  updateCourses,
-} from "../../redux/coursesSlice";
+import { useEffect, useState } from "react";
+import { Form, Spinner } from "react-bootstrap";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import axiosInstance from "../../networks/api";
+import Swal from "sweetalert2";
 import { BsXCircleFill } from "react-icons/bs";
 import "../modal.css";
-import { Form } from "react-bootstrap";
-import Swal from "sweetalert2";
+import { getCategory } from "../../redux/categorySlice";
+import { useDispatch, useSelector } from "react-redux";
 
-const Modal = ({ open, onClose }) => {
-  const [kelas, setKelas] = useState("");
-  const [kapasitas, setKapasitas] = useState("");
-  const [kategori, setKategori] = useState("");
-  const [harga, setHarga] = useState("");
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
+const EditModalKursus = () => {
   const { id } = useParams();
-
-  // const courses = useSelector((state) => courseSelectors.selectById(state, id));
+  const category = useSelector((state) => state.category);
+  const dispatch = useDispatch();
+  const [empdata, empdatachange] = useState({});
 
   useEffect(() => {
-    dispatch(getCoursesById());
+    getCourseById();
+  }, []);
+
+  useEffect(() => {
+    dispatch(getCategory());
   }, [dispatch]);
 
-  // useEffect(() => {
-  //   if (course) {
-  //     setKelas(course.kelas);
-  //     setKapasitas(course.kapasitas);
-  //     setKategori(course.kategori);
-  //     setHarga(course.harga);
-  //   }
-  // }, [course]);
+  const getCourseById = async () => {
+    const response = await axiosInstance.get(
+      `/instructor/course/get_by_id/${id}`
+    );
 
-  if (!open) return null;
+    const data = await response.data.course;
+    namechange(data.name);
+    setCapacity(data.capacity);
+    setcategoryName(data.category);
+    setPrice(data.price);
+    setDescription(data.description);
+    console.log(data.category);
+    // setContent(content);
+  };
 
-  const HandleSimpan = async (e) => {
-    e.preventDefault();
-    await dispatch(update({ id, kelas, kapasitas, kategori, harga }));
+  const [name, namechange] = useState("");
+  const [email, emailchange] = useState("");
+  const [phone, phonechange] = useState("");
+  const [category_id, setcategoryName] = useState("");
+  const [description, setDescription] = useState("");
+  const [capacity, setCapacity] = useState("");
+  const [price, setPrice] = useState("");
+  const [active, activechange] = useState(true);
+  const [validation, valchange] = useState(false);
+
+  const navigate = useNavigate();
+
+  const HandleSimpan = () => {
     Swal.fire({
       title: "Simpan Perubahan?",
 
@@ -51,6 +60,27 @@ const Modal = ({ open, onClose }) => {
       confirmButtonText: "Yes",
     }).then((result) => {
       if (result.isConfirmed) {
+        const empdata = {
+          id,
+          name,
+          email,
+          phone,
+          active,
+          category_id,
+          description,
+          capacity,
+          price,
+        };
+        axiosInstance.put(
+          `https://www.gencer.live/instructor/course/update/${id}`,
+          {
+            name: name,
+            category_id: category_id,
+            description: description,
+            capacity: capacity,
+            price: price,
+          }
+        );
         let timerInterval;
         Swal.fire({
           title: "Data Berhasil Disimpan !",
@@ -70,18 +100,16 @@ const Modal = ({ open, onClose }) => {
         }).then((result) => {
           /* Read more about handling dismissals below */
           if (result.dismiss === Swal.DismissReason.timer) {
-            onClose(onClose);
+            navigate("/kursus");
             console.log("I was closed by the timer");
           }
         });
       }
     });
-
-    navigate("/kursus");
   };
 
   return (
-    <div onClick={onClose} className="overlay">
+    <div className="overlay">
       <div
         onClick={(e) => {
           e.stopPropagation();
@@ -90,57 +118,97 @@ const Modal = ({ open, onClose }) => {
       >
         <div className="modalRight">
           <h2 className="modalTitle">Edit Kursus</h2>
-          <p className="closeBtn" onClick={onClose}>
+          <p className="closeBtn">
             <BsXCircleFill />
           </p>
+          {/* onClick={onClose} */}
           <div className="content">
             <Form>
               <Form.Group className="mb-3">
-                <Form.Label>Nama Kursus</Form.Label>
+                <Form.Label>Materi</Form.Label>
                 <Form.Control
                   type="text"
-                  value={kelas}
-                  placeholder="Become Profesional UI UX"
-                  onChange={(e) => setKelas(e.target.value)}
+                  placeholder="Introduction"
+                  required
+                  value={name}
+                  onMouseDown={(e) => valchange(true)}
+                  onChange={(e) => namechange(e.target.value)}
+                  className="form-control"
+                />
+              </Form.Group>
+              {/* <Form.Group controlId="formFile" className="mb-3">
+                <Form.Label>File</Form.Label>
+                <Form.Control type="file" />
+              </Form.Group> */}
+              <Form.Group
+                className="mb-3"
+                controlId="exampleForm.ControlTextarea1"
+              >
+                <Form.Label>Deskripsi</Form.Label>
+                <Form.Control
+                  as="textarea"
+                  rows={3}
+                  value={description}
+                  onChange={(e) => setDescription(e.target.valueAsNumber)}
                 />
               </Form.Group>
               <Form.Group className="mb-3">
                 <Form.Label>Kapasitas</Form.Label>
                 <Form.Control
-                  type="text"
-                  value={kapasitas}
-                  placeholder="20"
-                  onChange={(e) => setKapasitas(e.target.value)}
+                  type="number"
+                  value={capacity}
+                  min={1}
+                  onMouseDown={(e) => valchange(true)}
+                  onChange={(e) => setCapacity(e.target.valueAsNumber)}
+                  // onChange={(e) => setCapacity(capacity + 1)}
+                  className="form-control"
                 />
               </Form.Group>
-
               <Form.Group className="mb-3">
                 <Form.Label>Kategori</Form.Label>
-                <Form.Control
+                {/* <Form.Control
                   type="text"
                   placeholder="Design"
                   value={kategori}
                   onChange={(e) => setKategori(e.target.value)}
-                />
+                /> */}
+                <Form.Select
+                  // onChange={({ target: { value } }) => callback(value)}
+                  onChange={(e) => setcategoryName(e.target.value)}
+                >
+                  <option value="">Choose a Category</option>
+                  {category.data.categories?.map((categories) => (
+                    <option
+                      value={categories.id}
+                      key={categories.id}
+                      // onChange={(e) => setcategoryName(e.target.value)}
+                    >
+                      {categories.name}
+                    </option>
+                  ))}
+                </Form.Select>
               </Form.Group>
               <Form.Group className="mb-3">
                 <Form.Label>Harga</Form.Label>
                 <Form.Control
-                  type="text"
+                  type="number"
                   placeholder=""
-                  value={harga}
-                  onChange={(e) => setHarga(e.target.value)}
+                  min={1}
+                  value={price}
+                  onChange={(e) => setPrice(e.target.valueAsNumber)}
                 />
               </Form.Group>
             </Form>
           </div>
           <div className="btnContainer">
-            <button type="submit" className="btnPrimary" onClick={HandleSimpan}>
+            <button className="btnPrimary" type="submit" onClick={HandleSimpan}>
               <span className="bold">Simpan</span>
             </button>
-            <button className="btnOutline" onClick={onClose}>
-              <span className="bold">Batal</span>
-            </button>
+            <Link to="/kursus">
+              <button className="btnOutline">
+                <span className="bold">Batal</span>
+              </button>
+            </Link>
           </div>
         </div>
       </div>
@@ -148,4 +216,4 @@ const Modal = ({ open, onClose }) => {
   );
 };
 
-export default Modal;
+export default EditModalKursus;

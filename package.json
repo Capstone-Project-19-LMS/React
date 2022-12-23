@@ -11,6 +11,8 @@
     "axios": "^1.2.0",
     "bootstrap": "^5.2.2",
     "framer-motion": "^7.6.15",
+    "js-cookie": "^3.0.1",
+    "moment": "^2.29.4",
     "rating-star": "^1.1.0",
     "react": "^18.2.0",
     "react-bootstrap": "^2.6.0",

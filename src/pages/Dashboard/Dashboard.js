@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./Dashboard.css";
 import Profile from "../../assets/img/Profile.png";
 import {
@@ -11,10 +11,26 @@ import { FaUserFriends } from "react-icons/fa";
 import Footer from "../../component/Footer/Footer";
 import SideBar from "../../component/Sidebar/Sidebar";
 import { Table, Button, Stack } from "react-bootstrap";
-import { DataKursus, DataMateri, DataMantee } from "../../data/Data";
+import { AmountData } from "../../data/Data";
 import Swal from "sweetalert2";
+import { useSelector, useDispatch } from "react-redux";
+import { getCourses } from "../../redux/coursesSlice";
+import { getMateri } from "../../redux/materiSlice";
 
 const Dashboard = () => {
+  const course = useSelector((state) => state.courses);
+  const materi = useSelector((state) => state.materi);
+  const menteeList = useSelector((state) => state.mentees.value);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getMateri());
+  }, [dispatch]);
+
+  useEffect(() => {
+    dispatch(getCourses());
+  }, [dispatch]);
+
   const HandleDelete = () => {
     Swal.fire({
       title: "Are you sure?",
@@ -63,8 +79,11 @@ const Dashboard = () => {
                     <h4 className="card-title">Jumlah Kursus</h4>
                     <hr />
                     <h1>
-                      <BsBook /> 10
-                    </h1>
+                      <BsBook /> 
+                    {AmountData.map((data) => (
+                      <span> {data.course}</span>
+                       ))}
+                    </h1>  
                   </div>
                 </div>
               </div>
@@ -74,7 +93,10 @@ const Dashboard = () => {
                     <h4 className="card-title">Jumlah Mentor</h4>
                     <hr />
                     <h1>
-                      <FaUserFriends /> 10
+                      <FaUserFriends />
+                      {AmountData.map((data) => (
+                      <span> {data.mentor}</span>
+                       ))}
                     </h1>
                   </div>
                 </div>
@@ -85,7 +107,10 @@ const Dashboard = () => {
                     <h4 className="card-title">Jumlah Mentee</h4>
                     <hr />
                     <h1>
-                      <FaUserFriends /> 100
+                      <FaUserFriends /> 
+                      {AmountData.map((data) => (
+                      <span> {data.mentee}</span>
+                       ))}
                     </h1>
                   </div>
                 </div>
@@ -96,7 +121,10 @@ const Dashboard = () => {
                     <h4 className="card-title">Kategori Kursus</h4>
                     <hr />
                     <h1>
-                      <BsVectorPen /> 8
+                      <BsVectorPen /> 
+                      {AmountData.map((data) => (
+                      <span> {data.kategori}</span>
+                       ))}
                     </h1>
                   </div>
                 </div>
@@ -118,13 +146,13 @@ const Dashboard = () => {
                     </thead>
 
                     <tbody>
-                      {DataKursus.map((data, index) => (
-                        <tr>
+                      {course.data.courses?.map((course, index) => (
+                        <tr key={course.id}>
                           <td>{index + 1}</td>
-                          <td>{data.nama}</td>
-                          <td>{data.kapasitas} mantee</td>
-                          <td>{data.kategori}</td>
-                          <td>Rp. {data.harga}</td>
+                          <td>{course.name}</td>
+                          <td>{course.capacity}</td>
+                          <td>{course.category.name}</td>
+                          <td>Rp. {course.price}</td>
                         </tr>
                       ))}
                     </tbody>
@@ -143,12 +171,12 @@ const Dashboard = () => {
                     </thead>
 
                     <tbody>
-                      {DataMateri.map((data, index) => (
+                      {materi.data.modules?.map((modules, index) => (
                         <tr>
                           <td>{index + 1}</td>
-                          <td>{data.materi}</td>
-                          <td>{data.file}</td>
-                          <td>{data.kelas}</td>
+                          <td>{modules.name}</td>
+                          <td>{modules.content}</td>
+                          <td>{modules.course_id}</td>
                         </tr>
                       ))}
                     </tbody>
@@ -166,12 +194,12 @@ const Dashboard = () => {
                       </tr>
                     </thead>
                     <tbody>
-                      {DataMantee.map((data, index) => (
+                      {menteeList.map((mentee, index) => (
                         <tr>
                           <td>{index + 1}</td>
-                          <td>{data.nama}</td>
-                          <td>{data.status}</td>
-                          <td>{data.kelas}</td>
+                          <td>{mentee.nama}</td>
+                          <td>{mentee.status}</td>
+                          <td>{mentee.kelas}</td>
                         </tr>
                       ))}
                     </tbody>
@@ -180,21 +208,27 @@ const Dashboard = () => {
               </div>
               <div className="col-md-4">
                 <div class="card">
-                  <div class="card-header"><strong>Informasi Aplikasi</strong></div>
+                  <div class="card-header">
+                    <strong>Informasi Aplikasi</strong>
+                  </div>
                   <div class="card-body">
                     <h5 class="card-title">Selamat Datang di GenCer</h5>
                     <p class="card-text">
-                    Kami berharap aplikasi ini dapat membantu instruktur dalam mengatur kelas nya.
+                      Kami berharap aplikasi ini dapat membantu instruktur dalam
+                      mengatur kelas nya.
                     </p>
-                    
+
                     <p class="card-text">
-                    Learning Management System ini dikembangkan oleh <strong>Capstone 19</strong> yang bermitra dengan <strong>Alterra Academy</strong>
+                      Learning Management System ini dikembangkan oleh{" "}
+                      <strong>Capstone 19</strong> yang bermitra dengan{" "}
+                      <strong>Alterra Academy</strong>
                     </p>
                     <p class="card-text">
-                    Salam “ Generasi Cermat , Generasi Cerdas
+                      Salam “ Generasi Cermat , Generasi Cerdas
                     </p>
                     <p class="card-text">
-                    Dari <strong>CP 19 untuk Generasi Cerdas Indonesia</strong>
+                      Dari{" "}
+                      <strong>CP 19 untuk Generasi Cerdas Indonesia</strong>
                     </p>
                   </div>
                 </div>

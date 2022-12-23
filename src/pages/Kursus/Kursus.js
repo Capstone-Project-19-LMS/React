@@ -8,6 +8,7 @@ import {
   Form,
   Button,
   Stack,
+  Spinner,
 } from "react-bootstrap";
 import Profile from "../../assets/img/Profile.png";
 import SideBar from "../../component/Sidebar/Sidebar";
@@ -19,25 +20,19 @@ import { BsPlusLg, BsFillPencilFill, BsTrashFill } from "react-icons/bs";
 import EditModal from "./EditModal";
 import TambahModal from "./TambahModal";
 // import { fetchProducts } from "../../redux/courseSlice";
-import { getCourses, deleteCourses } from "../../redux/coursesSlice";
+import {
+  getCourses,
+  deleteCourses,
+  getCoursesById,
+} from "../../redux/coursesSlice";
 import axiosInstance from "../../networks/api";
+import { Link } from "react-router-dom";
 // import { courseSelectors, getCourse, deletes } from "../../redux/courseSlice";
 
 const Kursus = () => {
   const course = useSelector((state) => state.courses);
   const dispatch = useDispatch();
-  const [getId, setGetId] = useState();
   const [search, setSearch] = useState("");
-  // const handleGetID = (id) => {
-  //   dispatch(getCoursesById(id));
-  // };
-  // const products = useSelector((state) => state.products);
-
-  // useEffect(() => {
-  //   dispatch(fetchProducts());
-  // }, [dispatch]);
-  // const courses = useSelector(courseSelectors.selectAll);
-  // const courses = useSelector((state) => state.products);
 
   useEffect(() => {
     dispatch(getCourses());
@@ -57,20 +52,51 @@ const Kursus = () => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        Swal.fire("Deleted!", "Your file has been deleted.", "success");
         dispatch(deleteCourses(id));
+        let timerInterval;
+        Swal.fire({
+          title: "Data Berhasil Dihapus !",
+          html: "I will close in <b></b> milliseconds.",
+          timer: 2000,
+          timerProgressBar: true,
+          didOpen: () => {
+            Swal.showLoading();
+            const b = Swal.getHtmlContainer().querySelector("b");
+            timerInterval = setInterval(() => {
+              b.textContent = Swal.getTimerLeft();
+            }, 100);
+          },
+          willClose: () => {
+            clearInterval(timerInterval);
+          },
+        }).then((result) => {
+          /* Read more about handling dismissals below */
+          if (result.dismiss === Swal.DismissReason.timer) {
+            dispatch(getCourses());
+            onclick = { setOpenTambahModal };
+            console.log("I was closed by the timer");
+          }
+        });
       }
     });
   };
 
   return (
     <div>
-      <EditModal open={openEditModal} onClose={() => setOpenEditModal(false)} />
+      {/* <EditModal
+        open={openEditModal}
+        onClose={() => setOpenEditModal(false)}
+        // setGetId={setGetId}
+        // getId={getId}
+        // handleCancel={handleCancel}
+        // handleOk={handleOk}
+        // as={Link}
+        // to={`/kursus/get_by_id/${course.id}`}
+      /> */}
       <TambahModal
         open={openTambahModal}
         onClose={() => setOpenTambahModal(false)}
       />
-
       <SideBar>
         <div className="container-fluid">
           <div className="row heading">
@@ -126,40 +152,52 @@ const Kursus = () => {
                   <th>Aksi</th>
                 </tr>
               </thead>
-
-              <tbody>
-                {course.data.courses?.filter(course=>course.name.toLowerCase().includes(search)).map((course, index) => (
-                  <tr key={course.id}>
-                    <td>{index + 1}</td>
-                    <td>{course.name}</td>
-                    <td>{course.capacity}</td>
-                    <td>{course.category.name}</td>
-                    <td>{course.price}</td>
-                    <td>
-                      <Stack direction="horizontal" gap={3}>
-                        <Button
-                          size="sm"
-                          variant="success"
-                          setGetId={setGetId}
-                          getId={getId}
-                          onClick={() => setOpenEditModal(true)}
-                          // onClick={handleGetID(course.id)}
-                        >
-                          <BsFillPencilFill /> Edit
-                        </Button>
-                        <Button
-                          size="sm"
-                          variant="danger"
-                          // onClick={() => dispatch(deleteCourses(course.id))}
-                          onClick={() => HandleDelete(course.id)}
-                        >
-                          <BsTrashFill /> Hapus
-                        </Button>
-                      </Stack>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
+              {course.loading ? (
+                <div style={{ textAlign: "center", alignItems: "center" }}>
+                  <Spinner animation="grow" variant="primary" />
+                  <Spinner animation="grow" variant="secondary" />
+                  <Spinner animation="grow" variant="success" />
+                  <Spinner animation="grow" variant="danger" />
+                </div>
+              ) : (
+                <tbody>
+                  {course.data.courses
+                    ?.filter((course) =>
+                      course.name.toLowerCase().includes(search)
+                    )
+                    .map((course, index) => (
+                      <tr key={course.id}>
+                        <td>{index + 1}</td>
+                        <td>{course.name}</td>
+                        <td>{course.capacity}</td>
+                        <td>{course.category.name}</td>
+                        <td>Rp. {course.price}</td>
+                        <td>
+                          <Stack direction="horizontal" gap={3}>
+                            <Button
+                              size="sm"
+                              variant="success"
+                              as={Link}
+                              to={`/kursus/${course.id}`}
+                              onClick={() => setOpenEditModal(true)}
+                            >
+                              <BsFillPencilFill /> Edit
+                            </Button>
+                            <Button
+                              size="sm"
+                              variant="danger"
+                              onClick={() => {
+                                HandleDelete(course.id);
+                              }}
+                            >
+                              <BsTrashFill /> Hapus
+                            </Button>
+                          </Stack>
+                        </td>
+                      </tr>
+                    ))}
+                </tbody>
+              )}
             </Table>
           </div>
         </div>

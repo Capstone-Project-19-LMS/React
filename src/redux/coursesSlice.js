@@ -75,10 +75,12 @@ export const coursesSlice = createSlice({
     builder
       .addCase(getCourses.pending, (state, action) => {
         state.status = "loading";
+        state.loading = true;
       })
       .addCase(getCourses.fulfilled, (state, action) => {
         state.status = "succeded";
         state.data = action.payload;
+        state.loading = false;
       })
       .addCase(getCourses.rejected, (state, action) => {
         state.status = "failed";
@@ -96,17 +98,16 @@ export const coursesSlice = createSlice({
         state.data.push(action.payload);
         // state.componentStatus = !state.componentStatus;
       })
+      .addCase(deleteCourses.pending, (state) => {
+        state.loading = true;
+      })
       .addCase(deleteCourses.fulfilled, (state, action) => {
-        // state.deleted = !state.deleted;
-        state.status = "succeded";
-        state.data = state.data.filter(
-          (course) => course.id !== action.payload._id
+        const courseId = state.dataID.course_id;
+        const updatedData = state.data.filter(
+          (item) => item.course_id !== courseId
         );
-        state.loading = !state.loading;
-        // const { id } = action.payload;
-        // state.data = state.data.filter((val) => val.id !== id);
-        // console.log(state.data);
-        // // state.deleted = false;
+        state.data = updatedData;
+        state.loading = false;
       })
       .addCase(updateCourses.fulfilled, (state, action) => {
         state.status = "success";

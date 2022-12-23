@@ -7,6 +7,7 @@ import {
   Form,
   Button,
   Stack,
+  Spinner,
 } from "react-bootstrap";
 import Profile from "../../assets/img/Profile.png";
 import SideBar from "../../component/Sidebar/Sidebar";
@@ -28,6 +29,7 @@ import {
   getMediaMateri,
 } from "../../redux/materiSlice";
 import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 
 const Materi = () => {
   const materi = useSelector((state) => state.materi);
@@ -56,15 +58,38 @@ const Materi = () => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        Swal.fire("Deleted!", "Your file has been deleted.", "success");
         dispatch(deleteMateri(id));
+        let timerInterval;
+        Swal.fire({
+          title: "Data Berhasil Dihapus !",
+          html: "I will close in <b></b> milliseconds.",
+          timer: 2000,
+          timerProgressBar: true,
+          didOpen: () => {
+            Swal.showLoading();
+            const b = Swal.getHtmlContainer().querySelector("b");
+            timerInterval = setInterval(() => {
+              b.textContent = Swal.getTimerLeft();
+            }, 100);
+          },
+          willClose: () => {
+            clearInterval(timerInterval);
+          },
+        }).then((result) => {
+          /* Read more about handling dismissals below */
+          if (result.dismiss === Swal.DismissReason.timer) {
+            dispatch(getMateri());
+            onclick = { setOpenTambahModal };
+            console.log("I was closed by the timer");
+          }
+        });
       }
     });
   };
 
   return (
     <div>
-      <EditModal open={openEditModal} onClose={() => setOpenEditModal(false)} />
+      {/* <EditModal open={openEditModal} onClose={() => setOpenEditModal(false)} /> */}
       <TambahModal
         open={openTambahModal}
         onClose={() => setOpenTambahModal(false)}
@@ -123,35 +148,49 @@ const Materi = () => {
                   <th>Aksi</th>
                 </tr>
               </thead>
-
-              <tbody>
-                {materi.data.modules?.filter(modules=>modules.name.toLowerCase().includes(search)).map((modules, index) => (
-                  <tr>
-                    <td>{index + 1}</td>
-                    <td>{modules.name}</td>
-                    <td>{modules.content}</td>
-                    <td>{modules.course_id}</td>
-                    <td>
-                      <Stack direction="horizontal" gap={3}>
-                        <Button
-                          size="sm"
-                          variant="success"
-                          onClick={() => setOpenEditModal(true)}
-                        >
-                          <BsFillPencilFill /> Edit
-                        </Button>
-                        <Button
-                          size="sm"
-                          variant="danger"
-                          onClick={() => HandleDelete(modules.id)}
-                        >
-                          <BsTrashFill /> Hapus
-                        </Button>
-                      </Stack>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
+              {materi.loading ? (
+                <div style={{ textAlign: "center", alignItems: "center" }}>
+                  <Spinner animation="grow" variant="primary" />
+                  <Spinner animation="grow" variant="secondary" />
+                  <Spinner animation="grow" variant="success" />
+                  <Spinner animation="grow" variant="danger" />
+                </div>
+              ) : (
+                <tbody>
+                  {materi.data.modules
+                    ?.filter((modules) =>
+                      modules.name.toLowerCase().includes(search)
+                    )
+                    .map((modules, index) => (
+                      <tr>
+                        <td>{index + 1}</td>
+                        <td>{modules.name}</td>
+                        <td>{modules.content}</td>
+                        <td>{modules.course.name}</td>
+                        <td>
+                          <Stack direction="horizontal" gap={3}>
+                            <Button
+                              size="sm"
+                              variant="success"
+                              as={Link}
+                              to={`/materi/${modules.id}`}
+                              onClick={() => setOpenEditModal(true)}
+                            >
+                              <BsFillPencilFill /> Edit
+                            </Button>
+                            <Button
+                              size="sm"
+                              variant="danger"
+                              onClick={() => HandleDelete(modules.id)}
+                            >
+                              <BsTrashFill /> Hapus
+                            </Button>
+                          </Stack>
+                        </td>
+                      </tr>
+                    ))}
+                </tbody>
+              )}
             </Table>
           </div>
         </div>
