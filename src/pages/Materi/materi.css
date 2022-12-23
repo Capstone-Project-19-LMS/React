@@ -1,20 +1,19 @@
-.head{
-    margin-bottom: 20px;
+.head {
+  margin-bottom: 20px;
 }
 
-.search{
-    width: 30% ;
-    float: left;
+.search {
+  width: 30%;
+  float: left;
 }
-.btnTambah{
+/* .btnTambah{
     
-}
+} */
 
-.btnTambah Button{
-    position: absolute;
-    right: 25px;
-    color: rgb(255, 255, 255);
-    background-color: rgb(245,213,0) !important;
-    padding: 5px;
-    
+.btnTambah Button {
+  position: absolute;
+  right: 25px;
+  color: rgb(255, 255, 255);
+  background-color: rgb(245, 213, 0) !important;
+  padding: 5px;
 }
