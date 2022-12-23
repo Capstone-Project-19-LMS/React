@@ -12,6 +12,10 @@ import Review from "../pages/Review/Review";
 import Tes from "../component/Tes";
 import AdminRoute from "./AdminRoute";
 import HasSignInRoute from "./HasSignInRoute";
+import EditModalKursus from "../pages/Kursus/EditModal";
+import EditModalMateri from "../pages/Materi/EditModal";
+import EditModalMentee from "../pages/Mantee/EditModal";
+import EditModalTugas from "../pages/Tugas/Modal";
 
 const SetupRouters = () => {
   return (
@@ -43,9 +47,13 @@ const SetupRouters = () => {
         <Route path="/login" element={<Login />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/materi" element={<Materi />} />
+        <Route path="/materi/:id" element={<EditModalMateri />} />
         <Route path="/mantee" element={<Mantee />} />
+        <Route path="/mantee/:id" element={<EditModalMentee />} />
         <Route path="/kursus" element={<Kursus />} />
+        <Route path="/kursus/:id" element={<EditModalKursus />} />
         <Route path="/tugas" element={<Tugas />} />
+        <Route path="/tugas/:id" element={<EditModalTugas />} />
         <Route path="/review" element={<Review />} />
         <Route path="/test" element={<Tes />} />
       </Routes>
