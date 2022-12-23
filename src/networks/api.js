@@ -10,7 +10,8 @@ const isLocalDev = (isDev) => {
   axiosConfig = axios.create();
   if (isDev) {
     const config = {
-      baseURL: CONST.BASE_API,
+      // baseURL: CONST.BASE_API,
+      baseURL: "https://www.gencer.live",
       headers: {
         "Content-Type": "application/json",
         ...(!!getToken() && { Authorization: `Bearer ${getToken()}` }),
