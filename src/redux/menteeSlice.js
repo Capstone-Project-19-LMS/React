@@ -15,7 +15,7 @@ export const getMentee = createAsyncThunk(
   "/instructor/course/getCourse",
   async () => {
     const response = await axiosInstance.get(
-      "https://www.gencer.live/instructor/course/get_by_id/11f51cdd3aa7473c9fe9dda469788e7c/enroll"
+      "https://gencer.live/instructor/course/get_by_course_id/11f51cdd3aa7473c9fe9dda469788e7c/enroll"
     );
     console.log(response.data);
     return response.data;

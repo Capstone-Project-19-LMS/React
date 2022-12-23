@@ -49,7 +49,7 @@ const SetupRouters = () => {
         <Route path="/materi" element={<Materi />} />
         <Route path="/materi/:id" element={<EditModalMateri />} />
         <Route path="/mantee" element={<Mantee />} />
-        <Route path="/mantee/:id" element={<EditModalMentee />} />
+        <Route path="/mantee/:id/enroll" element={<EditModalMentee />} />
         <Route path="/kursus" element={<Kursus />} />
         <Route path="/kursus/:id" element={<EditModalKursus />} />
         <Route path="/tugas" element={<Tugas />} />

@@ -16,7 +16,7 @@ const coursesAPI = {
   async getCoursesId(id) {
     try {
       const response = await axiosInstance.get(
-        `/instructor/course/get_by_id/${id}`
+        `https://gencer.live/instructor/course/get_by_id/${id}`
       );
       return response;
     } catch (error) {

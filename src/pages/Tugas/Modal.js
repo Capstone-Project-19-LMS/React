@@ -206,7 +206,7 @@ const EditModalTugas = () => {
                 />
               </Form.Group>
               <Form.Group className="mb-3">
-                <Form.Label>File</Form.Label>
+                <Form.Label>Nilai</Form.Label>
                 <Form.Control
                   type="number"
                   value={grade}

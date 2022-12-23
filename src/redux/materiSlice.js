@@ -52,7 +52,7 @@ export const createMateri = createAsyncThunk(
 
 export const deleteMateri = createAsyncThunk("module/delete", async (id) => {
   const response = await axiosInstance.delete(
-    `/instructor/module/delete/${id}`
+    `https://gencer.live/instructor/module/delete/${id}`
   );
   console.log(response.data);
   return response.data;
