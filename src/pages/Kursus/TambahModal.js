@@ -6,15 +6,15 @@ import Swal from "sweetalert2";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { create } from "../../redux/courseSlice";
-import { createCourses } from "../../redux/coursesSlice";
+import { createCourses, getCourses } from "../../redux/coursesSlice";
 import { getCategory } from "../../redux/categorySlice";
 
 const TambahModal = ({ open, onClose, callback }) => {
   const [name, setName] = useState("");
   const [category_id, setcategoryName] = useState("");
   const [description, setDescription] = useState("");
-  const [capacity, setCapacity] = useState(0);
-  const [price, setPrice] = useState(0);
+  const [capacity, setCapacity] = useState("");
+  const [price, setPrice] = useState("");
   const category = useSelector((state) => state.category);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -58,6 +58,7 @@ const TambahModal = ({ open, onClose, callback }) => {
         }).then((result) => {
           /* Read more about handling dismissals below */
           if (result.dismiss === Swal.DismissReason.timer) {
+            dispatch(getCourses());
             onClose(onClose);
             console.log("I was closed by the timer");
           }
@@ -86,28 +87,36 @@ const TambahModal = ({ open, onClose, callback }) => {
               <Form.Group className="mb-3">
                 <Form.Label>Nama Kursus</Form.Label>
                 <Form.Control
+                  required
                   type="text"
                   value={name}
-                  placeholder="Become Profesional UI UX"
+                  placeholder="Masukkan Nama Kursus"
                   onChange={(e) => setName(e.target.value)}
                 />
               </Form.Group>
-              <Form.Group className="mb-3">
-                <Form.Label>Des Kursus</Form.Label>
+              <Form.Group
+                className="mb-3"
+                controlId="exampleForm.ControlTextarea1"
+              >
+                <Form.Label>Deskripsi</Form.Label>
                 <Form.Control
-                  type="text"
+                  required
+                  as="textarea"
+                  rows={3}
                   value={description}
-                  placeholder="Become Profesional UI UX"
-                  onChange={(e) => setDescription(e.target.value)}
+                  placeholder="Masukkan Desskripsi"
+                  onChange={(e) => setDescription(e.target.valueAsNumber)}
                 />
               </Form.Group>
               <Form.Group className="mb-3">
                 <Form.Label>Kapasitas</Form.Label>
                 <Form.Control
+                  required
                   type="number"
+                  min={1}
                   value={capacity}
-                  placeholder="20"
-                  onChange={(e) => setCapacity(capacity + 1)}
+                  placeholder="Masukkan Kapasitas"
+                  onChange={(e) => setCapacity(e.target.valueAsNumber)}
                 />
               </Form.Group>
               <Form.Group className="mb-3">
@@ -121,8 +130,9 @@ const TambahModal = ({ open, onClose, callback }) => {
                 <Form.Select
                   // onChange={({ target: { value } }) => callback(value)}
                   onChange={(e) => setcategoryName(e.target.value)}
+                  required
                 >
-                  <option value="">Choose a Category</option>
+                  <option value="">Pilih Kategori</option>
                   {category.data.categories?.map((categories) => (
                     <option
                       value={categories.id}
@@ -137,10 +147,12 @@ const TambahModal = ({ open, onClose, callback }) => {
               <Form.Group className="mb-3">
                 <Form.Label>Harga</Form.Label>
                 <Form.Control
+                  required
                   type="number"
-                  placeholder=""
+                  placeholder="Masukkan Harga"
                   value={price}
-                  onChange={(e) => setPrice(price + 1000)}
+                  min={1}
+                  onChange={(e) => setPrice(e.target.valueAsNumber)}
                 />
               </Form.Group>
             </Form>
