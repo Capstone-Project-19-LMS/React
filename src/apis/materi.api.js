@@ -21,6 +21,17 @@ const materiAPI = {
       console.log(err);
     }
   },
+  async createMateri(data) {
+    try {
+      const response = await axiosInstance.post(
+        "https://www.gencer.live/instructor/module/create",
+        data
+      );
+      return response;
+    } catch (error) {
+      console.log(error);
+    }
+  },
 };
 
 export default materiAPI;
