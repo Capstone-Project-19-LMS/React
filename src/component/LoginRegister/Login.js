@@ -32,7 +32,7 @@ function App() {
   const handleLogin = async (e) => {
     e.preventDefault();
     axiosInstance
-      .post("/instructor/login", {
+      .post("https://gencer.live/instructor/login", {
         email: users.email,
         password: users.password,
       })
