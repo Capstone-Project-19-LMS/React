@@ -26,7 +26,7 @@ const EditModalTugas = () => {
 
   const getTugasById = async () => {
     const response = await axiosInstance.get(
-      `/instructor/customer_assignment/get_by_id/${id}`
+      `https://www.gencer.live/instructor/customer_assignment/get_by_id/${id}`
     );
 
     const data = await response.data.customer_assignment;
