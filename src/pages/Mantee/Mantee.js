@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Table,
   Container,
@@ -7,6 +7,7 @@ import {
   Form,
   Button,
   Stack,
+  Spinner,
 } from "react-bootstrap";
 import Profile from "../../assets/img/Profile.png";
 import SideBar from "../../component/Sidebar/Sidebar";
@@ -14,18 +15,20 @@ import "./mantee.css";
 import Footer from "../../component/Footer/Footer";
 import { DataMantee } from "../../data/Data";
 import Swal from "sweetalert2";
-import {deleteMentee} from "../../redux/menteeSlice";
+import { deleteMentee, getMentee } from "../../redux/menteeSlice";
 import { useSelector, useDispatch } from "react-redux";
 import { BsPlusLg, BsFillPencilFill, BsTrashFill } from "react-icons/bs";
 import EditModal from "./EditModal";
 import TambahModal from "./TambahModal";
+import { Link } from "react-router-dom";
 
 const Mantee = () => {
   const dispatch = useDispatch();
-  const menteeList = useSelector((state) => state.mentees.value);
+  const menteeList = useSelector((state) => state.mentees);
   const [openEditModal, setOpenEditModal] = useState(false);
   const [openTambahModal, setOpenTambahModal] = useState(false);
   const [search, setSearch] = useState("");
+
   const HandleDelete = (id) => {
     Swal.fire({
       title: "Are you sure?",
@@ -43,10 +46,17 @@ const Mantee = () => {
     });
   };
 
+  useEffect(() => {
+    dispatch(getMentee());
+  }, [dispatch]);
+
   return (
     <div>
-      <EditModal open={openEditModal} onClose={() => setOpenEditModal(false)} />
-      <TambahModal open={openTambahModal} onClose={() => setOpenTambahModal(false)} />
+      {/* <EditModal open={openEditModal} onClose={() => setOpenEditModal(false)} /> */}
+      <TambahModal
+        open={openTambahModal}
+        onClose={() => setOpenTambahModal(false)}
+      />
       <SideBar>
         <div className="container-fluid">
           <div className="row heading">
@@ -100,39 +110,53 @@ const Mantee = () => {
                   <th>Kelas</th>
                   <th>Aksi</th>
                 </tr>
-              </thead>
-
-              <tbody>
-                {menteeList.filter(mentee=>mentee.nama.toLowerCase().includes(search)).map((mentee, index) => (
-                  <tr>
-                    <td>{index + 1}</td>
-                    <td>{mentee.nama}</td>
-                    <td>{mentee.status}</td>
-                    <td>{mentee.kelas}</td>
-                    <td>
-                      <Stack direction="horizontal" gap={3}>
-                        <Button
-                          size="sm"
-                          variant="success"
-                          onClick={() => setOpenEditModal(true)}
-                        >
-                          <BsFillPencilFill /> Edit
-                        </Button>
-                        <Button
-                          size="sm"
-                          variant="danger"
-                          // onClick={() => {
-                          //   dispatch(deleteMentee({id: mentee.id }));
-                          // }}
-                          onClick={() => HandleDelete({id: mentee.id})}
-                        >
-                          <BsTrashFill /> Hapus
-                        </Button>
-                      </Stack>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
+              </thead>{" "}
+              {menteeList.loading ? (
+                <div style={{ textAlign: "center", alignItems: "center" }}>
+                  <Spinner animation="grow" variant="primary" />
+                  <Spinner animation="grow" variant="secondary" />
+                  <Spinner animation="grow" variant="success" />
+                  <Spinner animation="grow" variant="danger" />
+                </div>
+              ) : (
+                <tbody>
+                  {menteeList.data.customer_enroll
+                    ?.filter((mentee) =>
+                      mentee.name.toLowerCase().includes(search)
+                    )
+                    .map((mentee, index) => (
+                      <tr>
+                        <td>{index + 1}</td>
+                        <td>{mentee.name}</td>
+                        <td>{mentee.status_enroll ? "Aktif" : "Non-Aktif"}</td>
+                        <td>{mentee.email}</td>
+                        <td>
+                          <Stack direction="horizontal" gap={3}>
+                            <Button
+                              size="sm"
+                              variant="success"
+                              as={Link}
+                              to={`/mantee/${mentee.id}`}
+                              onClick={() => setOpenEditModal(true)}
+                            >
+                              <BsFillPencilFill /> Edit
+                            </Button>
+                            <Button
+                              size="sm"
+                              variant="danger"
+                              // onClick={() => {
+                              //   dispatch(deleteMentee({id: mentee.id }));
+                              // }}
+                              onClick={() => HandleDelete({ id: mentee.id })}
+                            >
+                              <BsTrashFill /> Hapus
+                            </Button>
+                          </Stack>
+                        </td>
+                      </tr>
+                    ))}
+                </tbody>
+              )}
             </Table>
           </div>
         </div>
