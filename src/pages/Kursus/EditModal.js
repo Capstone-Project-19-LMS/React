@@ -166,23 +166,10 @@ const EditModalKursus = () => {
               </Form.Group>
               <Form.Group className="mb-3">
                 <Form.Label>Kategori</Form.Label>
-                {/* <Form.Control
-                  type="text"
-                  placeholder="Design"
-                  value={kategori}
-                  onChange={(e) => setKategori(e.target.value)}
-                /> */}
-                <Form.Select
-                  // onChange={({ target: { value } }) => callback(value)}
-                  onChange={(e) => setcategoryName(e.target.value)}
-                >
+                <Form.Select onChange={(e) => setcategoryName(e.target.value)}>
                   <option value="">Choose a Category</option>
                   {category.data.categories?.map((categories) => (
-                    <option
-                      value={categories.id}
-                      key={categories.id}
-                      // onChange={(e) => setcategoryName(e.target.value)}
-                    >
+                    <option value={categories.id} key={categories.id}>
                       {categories.name}
                     </option>
                   ))}

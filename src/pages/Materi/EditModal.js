@@ -31,11 +31,11 @@ const EditModalMateri = () => {
     const data = await response.data.module;
     namechange(data.name);
     setUrl(data.MediaModules[0].url);
+    setcategoryName(data.course_id);
     // setCapacity(data.capacity);
-    // setcategoryName(data.category);
     // setPrice(data.price);
     // setDescription(data.description);
-    console.log(data.MediaModules[0].url);
+    console.log(data.course_id);
     // setContent(content);
   };
 
@@ -79,7 +79,7 @@ const EditModalMateri = () => {
           {
             name: name,
             url: url,
-            category_id: category_id,
+            course_id: category_id,
             description: description,
             capacity: capacity,
             price: price,
@@ -111,36 +111,6 @@ const EditModalMateri = () => {
       }
     });
   };
-
-  // const handlesubmit = (e) => {
-  //   e.preventDefault();
-  //   const empdata = {
-  //     id,
-  //     name,
-  //     email,
-  //     phone,
-  //     active,
-  //     category_id,
-  //     description,
-  //     capacity,
-  //     price,
-  //   };
-  //   axiosInstance
-  //     .put(`https://www.gencer.live/instructor/course/update/${id}`, {
-  //       name: name,
-  //       category_id: category_id,
-  //       description: description,
-  //       capacity: capacity,
-  //       price: price,
-  //     })
-  //     .then((res) => {
-  //       alert("Saved successfully.");
-  //       navigate("/materi");
-  //     })
-  //     .catch((err) => {
-  //       console.log(err.message);
-  //     });
-  // };
 
   return (
     <div className="overlay">

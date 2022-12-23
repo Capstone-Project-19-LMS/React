@@ -5,7 +5,9 @@ import axiosInstance from "../networks/api";
 export const getCourses = createAsyncThunk(
   "/instructor/course/getCourse",
   async () => {
-    const response = await axiosInstance.get("/instructor/course/get_all");
+    const response = await axiosInstance.get(
+      "https://gencer.live/instructor/course/get_all"
+    );
     console.log(response.data);
     return response.data;
   }
@@ -53,7 +55,7 @@ export const updateCourses = createAsyncThunk("course/update", async (data) => {
 
 export const deleteCourses = createAsyncThunk("course/delete", async (id) => {
   const response = await axiosInstance.delete(
-    `/instructor/course/delete/${id}`
+    `https://gencer.live/instructor/course/delete/${id}`
   );
   console.log(response.data);
   // return response.data.courses.returning[0];

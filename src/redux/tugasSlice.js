@@ -24,7 +24,7 @@ export const getTugas = createAsyncThunk(
 
 export const deleteTugas = createAsyncThunk("tugas/delete", async (id) => {
   const response = await axiosInstance.delete(
-    `/customer/customer_assignment/delete/${id}`
+    `https://gencer.live/customer/customer_assignment/delete/${id}`
   );
   console.log(response.data);
   // return response.data.courses.returning[0];

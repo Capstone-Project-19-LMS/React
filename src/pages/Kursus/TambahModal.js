@@ -105,7 +105,7 @@ const TambahModal = ({ open, onClose, callback }) => {
                   rows={3}
                   value={description}
                   placeholder="Masukkan Desskripsi"
-                  onChange={(e) => setDescription(e.target.valueAsNumber)}
+                  onChange={(e) => setDescription(e.target.value)}
                 />
               </Form.Group>
               <Form.Group className="mb-3">

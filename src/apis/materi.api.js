@@ -3,7 +3,9 @@ import axiosInstance from "../networks/api";
 const materiAPI = {
   async getAllMateri() {
     try {
-      const response = await axiosInstance.get("/instructor/module/get_all");
+      const response = await axiosInstance.get(
+        "https://gencer.live/instructor/module/get_all"
+      );
       console.log(response);
       return response;
     } catch (err) {
@@ -13,7 +15,7 @@ const materiAPI = {
   async getMediaMateri() {
     try {
       const response = await axiosInstance.get(
-        "/instructor/media_module/get_all"
+        "https://gencer.live/instructor/media_module/get_all"
       );
       console.log(response);
       return response;

@@ -129,14 +129,14 @@ const Mantee = () => {
                         <td>{index + 1}</td>
                         <td>{mentee.name}</td>
                         <td>{mentee.status_enroll ? "Aktif" : "Non-Aktif"}</td>
-                        <td>{mentee.email}</td>
+                        <td>Golang</td>
                         <td>
                           <Stack direction="horizontal" gap={3}>
                             <Button
                               size="sm"
                               variant="success"
                               as={Link}
-                              to={`/mantee/${mentee.id}`}
+                              to={`/mantee/${mentee.id}/enroll`}
                               onClick={() => setOpenEditModal(true)}
                             >
                               <BsFillPencilFill /> Edit

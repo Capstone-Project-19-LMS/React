@@ -129,9 +129,9 @@ const Tugas = () => {
                   {tugasList.data.customer_assignment?.map((tugas, index) => (
                     <tr>
                       <td>{index + 1}</td>
-                      <td>{tugas.customer_id}</td>
+                      <td>{tugas.customer.name}</td>
                       <td>{tugas.file}</td>
-                      <td>{tugas.assignment_id}</td>
+                      <td>Golang</td>
                       <td>{moment(tugas.created_at).format("lll")}</td>
 
                       <td>{tugas.grade}</td>

@@ -16,11 +16,12 @@ import Swal from "sweetalert2";
 import { useSelector, useDispatch } from "react-redux";
 import { getCourses } from "../../redux/coursesSlice";
 import { getMateri } from "../../redux/materiSlice";
+import { getMentee } from "../../redux/menteeSlice";
 
 const Dashboard = () => {
   const course = useSelector((state) => state.courses);
   const materi = useSelector((state) => state.materi);
-  const menteeList = useSelector((state) => state.mentees.value);
+  const menteeList = useSelector((state) => state.mentees);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -29,6 +30,10 @@ const Dashboard = () => {
 
   useEffect(() => {
     dispatch(getCourses());
+  }, [dispatch]);
+
+  useEffect(() => {
+    dispatch(getMentee());
   }, [dispatch]);
 
   const HandleDelete = () => {
@@ -79,11 +84,11 @@ const Dashboard = () => {
                     <h4 className="card-title">Jumlah Kursus</h4>
                     <hr />
                     <h1>
-                      <BsBook /> 
-                    {AmountData.map((data) => (
-                      <span> {data.course}</span>
-                       ))}
-                    </h1>  
+                      <BsBook />
+                      {AmountData.map((data) => (
+                        <span> {data.course}</span>
+                      ))}
+                    </h1>
                   </div>
                 </div>
               </div>
@@ -95,8 +100,8 @@ const Dashboard = () => {
                     <h1>
                       <FaUserFriends />
                       {AmountData.map((data) => (
-                      <span> {data.mentor}</span>
-                       ))}
+                        <span> {data.mentor}</span>
+                      ))}
                     </h1>
                   </div>
                 </div>
@@ -107,10 +112,10 @@ const Dashboard = () => {
                     <h4 className="card-title">Jumlah Mentee</h4>
                     <hr />
                     <h1>
-                      <FaUserFriends /> 
+                      <FaUserFriends />
                       {AmountData.map((data) => (
-                      <span> {data.mentee}</span>
-                       ))}
+                        <span> {data.mentee}</span>
+                      ))}
                     </h1>
                   </div>
                 </div>
@@ -121,10 +126,10 @@ const Dashboard = () => {
                     <h4 className="card-title">Kategori Kursus</h4>
                     <hr />
                     <h1>
-                      <BsVectorPen /> 
+                      <BsVectorPen />
                       {AmountData.map((data) => (
-                      <span> {data.kategori}</span>
-                       ))}
+                        <span> {data.kategori}</span>
+                      ))}
                     </h1>
                   </div>
                 </div>
@@ -176,7 +181,7 @@ const Dashboard = () => {
                           <td>{index + 1}</td>
                           <td>{modules.name}</td>
                           <td>{modules.content}</td>
-                          <td>{modules.course_id}</td>
+                          <td>{modules.content.name}</td>
                         </tr>
                       ))}
                     </tbody>
@@ -194,12 +199,14 @@ const Dashboard = () => {
                       </tr>
                     </thead>
                     <tbody>
-                      {menteeList.map((mentee, index) => (
+                      {menteeList.data.customer_enroll?.map((mentee, index) => (
                         <tr>
                           <td>{index + 1}</td>
-                          <td>{mentee.nama}</td>
-                          <td>{mentee.status}</td>
-                          <td>{mentee.kelas}</td>
+                          <td>{mentee.name}</td>
+                          <td>
+                            {mentee.status_enroll ? "Aktif" : "Non-Aktif"}
+                          </td>
+                          <td>{mentee.email}</td>
                         </tr>
                       ))}
                     </tbody>

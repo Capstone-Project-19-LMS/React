@@ -24,35 +24,41 @@ const EditModalMentee = () => {
 
   const getMenteeById = async () => {
     const response = await axiosInstance.get(
-      `/instructor/course/get_by_id/${id}`
+      // `/instructor/course/get_by_id/${id}
+      `/instructor/course/get_by_id/${id}/enroll`
     );
 
-    const data = await response.data.course;
+    const data = await response.data.customer_enroll;
     namechange(data.name);
+    setStatus(data.status_enroll);
     setCapacity(data.capacity);
     setcategoryName(data.category);
     setPrice(data.price);
     setDescription(data.description);
-    console.log(data.category);
+    console.log(data.status_enroll);
     // setContent(content);
   };
 
   const [name, namechange] = useState("");
   const [email, emailchange] = useState("");
+  const [kelas, setKelas] = useState("Golang");
+  const [status_enroll, setStatus] = useState("");
   const [phone, phonechange] = useState("");
   const [category_id, setcategoryName] = useState("");
   const [description, setDescription] = useState("");
   const [capacity, setCapacity] = useState("");
   const [price, setPrice] = useState("");
+  const [change, setChange] = useState("");
   const [active, activechange] = useState(true);
   const [validation, valchange] = useState(false);
+  const [aktif, setTrue] = useState(true);
+  const [nonaktif, setFalse] = useState(false);
 
   const navigate = useNavigate();
 
   const HandleSimpan = () => {
     Swal.fire({
       title: "Simpan Perubahan?",
-
       icon: "question",
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
@@ -64,6 +70,9 @@ const EditModalMentee = () => {
           id,
           name,
           email,
+          status_enroll,
+          aktif,
+          nonaktif,
           phone,
           active,
           category_id,
@@ -72,9 +81,12 @@ const EditModalMentee = () => {
           price,
         };
         axiosInstance.put(
-          `https://www.gencer.live/instructor/course/update/${id}`,
+          `https://gencer.live/instructor/course/enroll/update/${id}`,
           {
             name: name,
+            status: status_enroll,
+            status: aktif,
+            status: nonaktif,
             category_id: category_id,
             description: description,
             capacity: capacity,
@@ -100,7 +112,7 @@ const EditModalMentee = () => {
         }).then((result) => {
           /* Read more about handling dismissals below */
           if (result.dismiss === Swal.DismissReason.timer) {
-            navigate("/kursus");
+            navigate("/mantee");
             console.log("I was closed by the timer");
           }
         });
@@ -108,123 +120,7 @@ const EditModalMentee = () => {
     });
   };
 
-  // const handlesubmit = (e) => {
-  //   e.preventDefault();
-  //   const empdata = {
-  //     id,
-  //     name,
-  //     email,
-  //     phone,
-  //     active,
-  //     category_id,
-  //     description,
-  //     capacity,
-  //     price,
-  //   };
-  //   axiosInstance
-  //     .put(`https://www.gencer.live/instructor/course/update/${id}`, {
-  //       name: name,
-  //       category_id: category_id,
-  //       description: description,
-  //       capacity: capacity,
-  //       price: price,
-  //     })
-  //     .then((res) => {
-  //       alert("Saved successfully.");
-  //       navigate("/kursus");
-  //     })
-  //     .catch((err) => {
-  //       console.log(err.message);
-  //     });
-  // };
   return (
-    // <div>
-    //   <div className="row">
-    //     <div className="offset-lg-3 col-lg-6">
-    //       <form className="container" onSubmit={handlesubmit}>
-    //         <div className="card" style={{ textAlign: "left" }}>
-    //           <div className="card-title">
-    //             <h2>Employee Edit</h2>
-    //           </div>
-    //           <div className="card-body">
-    //             <div className="row">
-    //               <div className="col-lg-12">
-    //                 <div className="form-group">
-    //                   <label>ID</label>
-    //                   <input
-    //                     value={id}
-    //                     disabled="disabled"
-    //                     className="form-control"
-    //                   ></input>
-    //                 </div>
-    //               </div>
-
-    //               <div className="col-lg-12">
-    //                 <div className="form-group">
-    //                   <label>Name</label>
-    //                   <input
-    //                     required
-    //                     value={name}
-    //                     onMouseDown={(e) => valchange(true)}
-    //                     onChange={(e) => namechange(e.target.value)}
-    //                     className="form-control"
-    //                   ></input>
-    //                   {name.length == 0 && validation && (
-    //                     <span className="text-danger">Enter the name</span>
-    //                   )}
-    //                 </div>
-    //               </div>
-
-    //               <div className="col-lg-12">
-    //                 <div className="form-group">
-    //                   <label>Email</label>
-    //                   <input
-    //                     value={email}
-    //                     onChange={(e) => emailchange(e.target.value)}
-    //                     className="form-control"
-    //                   ></input>
-    //                 </div>
-    //               </div>
-
-    //               <div className="col-lg-12">
-    //                 <div className="form-group">
-    //                   <label>Phone</label>
-    //                   <input
-    //                     value={phone}
-    //                     onChange={(e) => phonechange(e.target.value)}
-    //                     className="form-control"
-    //                   ></input>
-    //                 </div>
-    //               </div>
-
-    //               <div className="col-lg-12">
-    //                 <div className="form-check">
-    //                   <input
-    //                     checked={active}
-    //                     onChange={(e) => activechange(e.target.checked)}
-    //                     type="checkbox"
-    //                     className="form-check-input"
-    //                   ></input>
-    //                   <label className="form-check-label">Is Active</label>
-    //                 </div>
-    //               </div>
-    //               <div className="col-lg-12">
-    //                 <div className="form-group">
-    //                   <button className="btn btn-success" type="submit">
-    //                     Save
-    //                   </button>
-    //                   <Link to="/kursus" className="btn btn-danger">
-    //                     Back
-    //                   </Link>
-    //                 </div>
-    //               </div>
-    //             </div>
-    //           </div>
-    //         </div>
-    //       </form>
-    //     </div>
-    //   </div>
-    // </div>onClick={onClose}
     <div className="overlay">
       <div
         onClick={(e) => {
@@ -233,7 +129,7 @@ const EditModalMentee = () => {
         className="modalContainer"
       >
         <div className="modalRight">
-          <h2 className="modalTitle">Edit Kursus</h2>
+          <h2 className="modalTitle">Edit Mentee</h2>
           <p className="closeBtn">
             <BsXCircleFill />
           </p>
@@ -241,90 +137,65 @@ const EditModalMentee = () => {
           <div className="content">
             <Form>
               <Form.Group className="mb-3">
-                <Form.Label>Materi</Form.Label>
+                <Form.Label>Nama Mentee</Form.Label>
                 <Form.Control
                   type="text"
                   placeholder="Introduction"
                   required
+                  disabled
                   value={name}
                   onMouseDown={(e) => valchange(true)}
                   onChange={(e) => namechange(e.target.value)}
                   className="form-control"
                 />
               </Form.Group>
-              {/* <Form.Group controlId="formFile" className="mb-3">
-                <Form.Label>File</Form.Label>
-                <Form.Control type="file" />
-              </Form.Group> */}
-              <Form.Group
-                className="mb-3"
-                controlId="exampleForm.ControlTextarea1"
-              >
-                <Form.Label>Deskripsi</Form.Label>
-                <Form.Control
-                  as="textarea"
-                  rows={3}
-                  value={description}
-                  onChange={(e) => setDescription(e.target.valueAsNumber)}
-                />
-              </Form.Group>
               <Form.Group className="mb-3">
-                <Form.Label>Kapasitas</Form.Label>
-                <Form.Control
-                  type="number"
-                  value={capacity}
-                  min={1}
-                  onMouseDown={(e) => valchange(true)}
-                  onChange={(e) => setCapacity(e.target.valueAsNumber)}
-                  // onChange={(e) => setCapacity(capacity + 1)}
-                  className="form-control"
-                />
-              </Form.Group>
-              <Form.Group className="mb-3">
-                <Form.Label>Kategori</Form.Label>
-                {/* <Form.Control
-                  type="text"
-                  placeholder="Design"
-                  value={kategori}
-                  onChange={(e) => setKategori(e.target.value)}
-                /> */}
-                <Form.Select
-                  // onChange={({ target: { value } }) => callback(value)}
-                  onChange={(e) => setcategoryName(e.target.value)}
-                >
-                  <option value="">Choose a Category</option>
-                  {category.data.categories?.map((categories) => (
-                    <option
-                      value={categories.id}
-                      key={categories.id}
-                      // onChange={(e) => setcategoryName(e.target.value)}
-                    >
-                      {categories.name}
+                <Form.Label>Status</Form.Label>
+                {status_enroll ? (
+                  <Form.Select onChange={(e) => setTrue(e.target.value)}>
+                    <option value={status_enroll}>
+                      {status_enroll ? "Aktif" : "Nonaktif"}
                     </option>
-                  ))}
-                </Form.Select>
+                    <option value={!status_enroll}>
+                      {!status_enroll ? "Aktif" : "Nonaktif"}
+                    </option>
+                  </Form.Select>
+                ) : (
+                  <Form.Select onChange={(e) => setFalse(e.target.value)}>
+                    <option value={status_enroll}>
+                      {status_enroll ? "Aktif" : "Nonaktif"}
+                    </option>
+                    <option value={!status_enroll}>
+                      {!status_enroll ? "Aktif" : "Nonaktif"}
+                    </option>
+                  </Form.Select>
+                )}
               </Form.Group>
               <Form.Group className="mb-3">
-                <Form.Label>Harga</Form.Label>
+                <Form.Label>Kelas Mentee</Form.Label>
                 <Form.Control
-                  type="number"
-                  placeholder=""
-                  min={1}
-                  value={price}
-                  onChange={(e) => setPrice(e.target.valueAsNumber)}
+                  type="text"
+                  placeholder="Introduction"
+                  required
+                  disabled
+                  value={kelas}
+                  onMouseDown={(e) => valchange(true)}
+                  onChange={(e) => namechange(e.target.value)}
+                  className="form-control"
                 />
               </Form.Group>
             </Form>
           </div>
+
           <div className="btnContainer">
             <button className="btnPrimary" type="submit" onClick={HandleSimpan}>
               <span className="bold">Simpan</span>
             </button>
-            <Link to="/mantee">
-              <button className="btnOutline">
+            <button className="btnOutline">
+              <Link to="/mantee">
                 <span className="bold">Batal</span>
-              </button>
-            </Link>
+              </Link>
+            </button>
           </div>
         </div>
       </div>
