@@ -25,7 +25,7 @@ const EditModalMateri = () => {
 
   const getMateriById = async () => {
     const response = await axiosInstance.get(
-      `/instructor/module/get_by_id/${id}`
+      `https://www.gencer.live/instructor/module/get_by_id/${id}`
     );
 
     const data = await response.data.module;

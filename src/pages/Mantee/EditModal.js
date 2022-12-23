@@ -25,7 +25,7 @@ const EditModalMentee = () => {
   const getMenteeById = async () => {
     const response = await axiosInstance.get(
       // `/instructor/course/get_by_id/${id}
-      `/instructor/course/get_by_id/${id}/enroll`
+      `https://www.gencer.live/instructor/course/get_by_id/${id}/enroll`
     );
 
     const data = await response.data.customer_enroll;
@@ -153,19 +153,19 @@ const EditModalMentee = () => {
                 <Form.Label>Status</Form.Label>
                 {status_enroll ? (
                   <Form.Select onChange={(e) => setTrue(e.target.value)}>
-                    <option value={status_enroll}>
+                    <option value={aktif}>
                       {status_enroll ? "Aktif" : "Nonaktif"}
                     </option>
-                    <option value={!status_enroll}>
+                    <option value={nonaktif}>
                       {!status_enroll ? "Aktif" : "Nonaktif"}
                     </option>
                   </Form.Select>
                 ) : (
                   <Form.Select onChange={(e) => setFalse(e.target.value)}>
-                    <option value={status_enroll}>
+                    <option value={aktif}>
                       {status_enroll ? "Aktif" : "Nonaktif"}
                     </option>
-                    <option value={!status_enroll}>
+                    <option value={!nonaktif}>
                       {!status_enroll ? "Aktif" : "Nonaktif"}
                     </option>
                   </Form.Select>
